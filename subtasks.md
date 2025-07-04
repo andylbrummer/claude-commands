@@ -99,6 +99,21 @@ Create individual task files in `requests/<request-name>/tasks/`:
 Role: <Role Description>
 Expertise: <Required Skills>
 
+## Current State Assessment
+**Before starting this task:**
+```yaml
+existing_state:
+  - ✅ Feature X is implemented and working
+  - ❌ Feature Y is missing or broken
+  - 🔄 Feature Z is partially implemented
+  - ❓ Unknown: Need to verify Feature W status
+
+current_files:
+  - /path/to/file1.ts: Contains basic implementation
+  - /path/to/file2.ts: Missing error handling
+  - /tests/existing.test.ts: Has 3 tests, needs 2 more
+```
+
 ## File Scope Definition
 **Explicit file list for this task:**
 ```yaml
@@ -115,6 +130,13 @@ create_files: [/tests/file1.test.ts, /docs/feature.md]
 - Dependencies: <List of prerequisite tasks>
 - Deliverables: <Expected outputs>
 - Acceptance Criteria: <Definition of done>
+
+## Success Criteria Checklist
+- [ ] Specific measurable outcome 1
+- [ ] Specific measurable outcome 2  
+- [ ] All validation commands pass
+- [ ] Tests cover new functionality
+- [ ] Documentation updated (if applicable)
 
 ## Risk Mitigation
 - Spike Tasks: <Any PoC needed before full implementation?>
@@ -160,15 +182,44 @@ npm run test:integration -- --grep "feature" # Integration pass
 ## Scope Expansion (Review/Validation Only)
 - Document missing files, request expansion with justification, update file-mapping.md
 
-## Checklist
-- [ ] Review requirements
+## Execution Checklist
+- [ ] Review requirements and current state
 - [ ] Verify all files in scope exist
 - [ ] Set up worktree
 - [ ] Implement solution within file scope
 - [ ] Run all validation commands
 - [ ] Ensure all validations pass
+- [ ] Check off all success criteria items
+- [ ] Update current state section to reflect new reality
 - [ ] Update documentation
 - [ ] Create PR for review
+
+## Task Completion Documentation
+**Required at end of every task:**
+```markdown
+## Final State Update
+**After completing this task:**
+```yaml
+final_state:
+  - ✅ Feature X is implemented and working (UPDATED)
+  - ✅ Feature Y is now implemented (CHANGED from ❌)
+  - ✅ Feature Z is fully implemented (CHANGED from 🔄)
+  - ✅ Feature W verified and working (CHANGED from ❓)
+
+updated_files:
+  - /path/to/file1.ts: Now contains full implementation with error handling
+  - /path/to/file2.ts: Added comprehensive error handling and validation
+  - /tests/existing.test.ts: Now has 5 complete tests
+  - /tests/file1.test.ts: NEW - Created with full test coverage
+```
+
+## Success Criteria Final Check
+- [x] Specific measurable outcome 1 - COMPLETED
+- [x] Specific measurable outcome 2 - COMPLETED
+- [x] All validation commands pass - npm test passes
+- [x] Tests cover new functionality - 95% coverage achieved
+- [x] Documentation updated - README.md updated with new API
+```
 ```
 
 ### 3. Git Workflow Management
@@ -232,6 +283,56 @@ The Task Master (orchestrator) will:
 | Task ID | Attempt | Failure Type | Feedback Summary |
 |---------|---------|--------------|------------------|
 | 03-dev-auth | 1 | Code Review | Missing error handling, incorrect types |
+
+## Task Completion & Adjustment Expectations
+- **Current State Required**: Every task must include current state assessment before starting
+- **Success Criteria Tracking**: All success criteria must be checked off when completed
+- **State Updates Required**: Update current state section to reflect reality after completion
+- **End-of-Task Updates**: Every task completion must update remaining task list
+- **Scope Adjustments**: Tasks may reveal partial completion, new requirements, or technical debt
+- **Discovery Integration**: New findings become concrete tasks with proper prioritization
+- **Spike Outcomes**: Research tasks generate actionable implementation tasks
+- **Quality Improvements**: Technical debt and optimization opportunities become tracked tasks
+
+## Task List Evolution Patterns:
+```markdown
+## Task Completion Review (Task 03-dev-auth - Attempt 2)
+
+### Initial State:
+- ❌ JWT service missing
+- 🔄 Auth service has basic password validation
+- ✅ User model ready
+
+### Final State:
+- ✅ JWT service implemented with full token generation
+- ✅ Auth service enhanced with JWT integration  
+- ✅ User model unchanged but properly integrated
+
+### Success Criteria:
+- [x] JWT service created with generateToken method
+- [x] Auth service integrates JWT generation
+- [x] Token includes user id, email, expiration
+- [x] Tests cover token generation and validation
+
+### Results:
+- ✅ Completed: JWT token generation and validation
+- 🔄 Partial: Error handling (implemented for auth, need for validation)  
+- 🆕 Discovered: Need rate limiting for auth endpoints
+- 🔧 Technical Debt: Legacy session cleanup in auth.service.ts
+- 🧪 Spike Result: Redis integration feasible, need configuration task
+
+## Updated Task List:
+- [ ] Add rate limiting middleware for auth endpoints  
+  - **Current State**: No rate limiting exists, basic auth endpoints exposed
+- [ ] Complete error handling for validation layer
+  - **Current State**: Auth errors ✅, validation errors ❌, logging ❌  
+- [ ] Clean up legacy session code in auth.service.ts
+  - **Current State**: Legacy code identified, new JWT flow working
+- [ ] Configure Redis connection and session store
+  - **Current State**: Feasibility confirmed, connection config needed
+- [ ] Update auth documentation with new JWT flow
+  - **Current State**: Old docs exist, new flow implemented but undocumented
+```
 ```
 
 ### 5. Integration & Completion
