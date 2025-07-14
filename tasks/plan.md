@@ -1,5 +1,25 @@
 # Task Planning Methodology
 
+## Prerequisites Check
+
+### MANDATORY: Before Planning Tasks
+```markdown
+## Previous Work Verification ✅
+- [ ] **Previous Tasks Complete**: All prior tasks have been completed and marked as COMPLETE
+- [ ] **Previous Subtasks Complete**: All prior subtasks have been completed and archived
+- [ ] **Files Archived**: All previous task/subtask files have been moved to archive folders
+- [ ] **Clean Slate**: No incomplete tasks or subtasks remain in active folders
+- [ ] **Dependencies Resolved**: All blocking dependencies from previous work resolved
+
+## Archive Verification
+- [ ] **Archive Structure**: Previous work properly archived in `/archive/YYYY-MM-DD-task-name/`
+- [ ] **Completion Documentation**: Previous tasks include completion reports and retrospectives
+- [ ] **Knowledge Transfer**: Key learnings from previous work documented and accessible
+- [ ] **Context Updates**: Any context updates from previous work incorporated
+
+**⚠️ STOP**: Do not proceed with planning until ALL previous tasks/subtasks are complete and archived
+```
+
 ## Quick Start Decision Tree
 
 ### Choose Your Approach:

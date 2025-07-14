@@ -1,6 +1,34 @@
 # Subtasks Completion & Retrospective
 ## Large Feature Completion with Cross-Task Learning Capture
 
+## Prerequisites Check
+
+### MANDATORY: Before Completing Subtasks
+```markdown
+## Integration Review Verification ✅
+- [ ] **Integration Review Complete**: All subtasks have been through integration review using [subtasks-review.md](subtasks-review.md)
+- [ ] **Review Approval**: Cross-task integration review has been completed and approved with no critical issues
+- [ ] **Quality Gates Passed**: All feature-level quality gates and standards have been met
+- [ ] **Integration Issues Resolved**: All identified cross-task integration issues have been resolved
+- [ ] **Stakeholder Sign-off**: Required stakeholder approvals have been obtained for the complete feature
+
+## Feature-Level Final Verification
+- [ ] **End-to-End Testing Complete**: Full feature workflows tested and verified across all components
+- [ ] **Performance Benchmarked**: Performance requirements validated across the entire feature
+- [ ] **Security Audit Complete**: Security review completed for the full feature surface area
+- [ ] **Cross-Service Compatibility**: All cross-service integration points verified and documented
+- [ ] **Documentation Complete**: Feature-level documentation updated and comprehensive
+
+## Production Readiness (Large Features)
+- [ ] **Monitoring Configured**: Comprehensive monitoring and alerting set up for the complete feature
+- [ ] **Rollback Plans Ready**: Feature-level rollback procedures documented and tested
+- [ ] **Deployment Strategy**: Deployment approach documented with risk mitigation
+- [ ] **Knowledge Transfer Complete**: Knowledge transfer completed to all relevant teams
+- [ ] **Archive Structure Ready**: Complete feature archive structure prepared with all subtask artifacts
+
+**⚠️ STOP**: Do not proceed with completion until EVERYTHING has been properly reviewed, integrated, and approved at the feature level
+```
+
 ## Quick Completion (Simple Features)
 
 ### 5-Minute Feature Completion Check:

@@ -1,5 +1,33 @@
 # Task Review & Verification
 
+## Prerequisites Check
+
+### MANDATORY: Before Reviewing Tasks
+```markdown
+## Task Execution Verification ✅
+- [ ] **All Tasks Complete**: Every task in scope has been fully executed and implemented
+- [ ] **Success Criteria Met**: All defined success criteria have been achieved
+- [ ] **Validation Commands Passed**: All validation commands have been executed successfully
+- [ ] **Tests Passing**: All required tests (unit, integration, e2e) are passing
+- [ ] **Code Quality Checks**: Linting, type checking, and security scans have passed
+
+## Implementation Completeness Check
+- [ ] **Feature Functionality**: All planned functionality has been implemented
+- [ ] **Error Handling**: Proper error handling has been implemented
+- [ ] **Edge Cases**: Known edge cases have been addressed
+- [ ] **Documentation**: Code documentation and comments are complete
+- [ ] **Integration Points**: All integration points are working correctly
+
+## Verification Steps Completion
+- [ ] **Manual Testing**: Manual testing scenarios have been executed
+- [ ] **Automated Testing**: Automated test suites have been run and passed
+- [ ] **Performance Testing**: Performance requirements have been verified
+- [ ] **Security Review**: Security considerations have been validated
+- [ ] **Cross-Platform Testing**: Platform-specific testing completed (if applicable)
+
+**⚠️ STOP**: Do not proceed with review until ALL tasks are complete and verification steps have succeeded
+```
+
 ## Quick Review (5-minute version)
 
 ### Essential Checks Only:

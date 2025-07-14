@@ -1,6 +1,34 @@
 # Subtasks Review & Integration Verification
 ## Cross-Task Integration Review for Large Features
 
+## Prerequisites Check
+
+### MANDATORY: Before Reviewing Subtasks
+```markdown
+## Subtask Execution Verification ✅
+- [ ] **All Subtasks Complete**: Every individual subtask has been fully executed and implemented
+- [ ] **Context Application Verified**: All subagents successfully applied context patterns consistently
+- [ ] **Cross-Task Integration Working**: Integration between parallel tasks has been verified
+- [ ] **Validation Commands Passed**: All validation commands across all subtasks have succeeded
+- [ ] **Tests Passing**: All tests (unit, integration, e2e) are passing across the entire feature
+
+## Feature-Level Completeness Check
+- [ ] **End-to-End Functionality**: Complete user workflows function across all integrated components
+- [ ] **Performance Validated**: Performance requirements met across all components of the large feature
+- [ ] **Security Review Complete**: Security considerations validated across the entire feature surface
+- [ ] **Cross-Service Integration**: All cross-service integration points are working correctly
+- [ ] **Feature Flags Implemented**: Feature flags properly implemented for safe deployment (if applicable)
+
+## Context and Quality Verification
+- [ ] **Pattern Consistency**: All subtasks followed consistent patterns from the context package
+- [ ] **External Standards Compliance**: External standards properly applied across all components
+- [ ] **Architecture Integrity**: Architecture decisions maintained throughout feature implementation
+- [ ] **Documentation Complete**: Feature-level documentation updated and comprehensive
+- [ ] **Monitoring and Alerting**: Appropriate monitoring configured for the complete feature
+
+**⚠️ STOP**: Do not proceed with review until ALL subtasks are complete and feature-level verification has succeeded
+```
+
 ## Quick Review Decision Tree
 
 ### Choose Review Depth:

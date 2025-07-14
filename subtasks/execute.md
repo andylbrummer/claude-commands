@@ -1,6 +1,34 @@
 # Subtasks Execution Guidelines
 ## Subagent Coordination with Context Preservation
 
+## Prerequisites Check
+
+### MANDATORY: Before Executing Subtasks
+```markdown
+## Subtask Planning Verification ✅
+- [ ] **Master Planning Complete**: Large feature planning completed using [subtasks-plan.md](subtasks-plan.md)
+- [ ] **Context Package Created**: Comprehensive context package exists in `/requests/<feature>/context/`
+- [ ] **Task Files Generated**: All individual task files created with context references
+- [ ] **Worktree Structure Ready**: Git worktrees set up in `~/work/worktrees/<feature>/`
+- [ ] **Dependencies Mapped**: Cross-task dependencies identified and ordered
+
+## Context and Resource Verification
+- [ ] **Context Distribution**: Context package accessible to all worktrees
+- [ ] **Integration Plan Ready**: Cross-task integration points documented
+- [ ] **Risk Mitigation Planned**: High-risk items have specific strategies
+- [ ] **Source Validation**: All external sources verified and accessible
+- [ ] **Resource Allocation**: Test databases, ports, and other resources allocated per task
+
+## Subagent Coordination Readiness
+- [ ] **Task Assignment Ready**: Each task has clear persona assignment and scope
+- [ ] **Conflict Prevention Setup**: File contention analysis completed and conflicts prevented
+- [ ] **Communication Protocols**: Status reporting and coordination mechanisms in place
+- [ ] **Integration Points Defined**: Clear interfaces between parallel tasks
+- [ ] **Quality Gates Established**: Validation commands and success criteria defined
+
+**⚠️ STOP**: Do not proceed with subagent execution until context package is complete and coordination infrastructure is ready
+```
+
 ## Quick Start: Subagent Execution
 
 ### For Task Master (Orchestrator):

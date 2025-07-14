@@ -1,5 +1,33 @@
 # Task Completion & Retrospective
 
+## Prerequisites Check
+
+### MANDATORY: Before Completing Tasks
+```markdown
+## Review Completion Verification ✅
+- [ ] **Review Process Complete**: All tasks have been through the review process using [tasks-review.md](tasks-review.md)
+- [ ] **Review Approval**: Review has been completed and approved with no critical issues
+- [ ] **Quality Gates Passed**: All quality gates and standards have been met
+- [ ] **Issue Resolution**: All identified issues have been resolved or documented
+- [ ] **Stakeholder Sign-off**: Required stakeholder approvals have been obtained
+
+## Final Verification Requirements
+- [ ] **All Tests Passing**: Final confirmation that all tests are passing
+- [ ] **Performance Validated**: Performance requirements have been verified and documented
+- [ ] **Security Cleared**: Security review has been completed and approved
+- [ ] **Documentation Complete**: All required documentation has been updated
+- [ ] **Integration Verified**: Full integration testing has been completed successfully
+
+## Readiness for Completion
+- [ ] **No Blocking Issues**: No critical or high-priority issues remain unresolved
+- [ ] **Rollback Plan Ready**: Rollback procedures are documented and tested (if applicable)
+- [ ] **Monitoring Setup**: Monitoring and alerting are configured for production (if applicable)
+- [ ] **Knowledge Transfer**: Knowledge transfer has been completed to relevant teams
+- [ ] **Archive Preparation**: Archive structure and documentation are ready
+
+**⚠️ STOP**: Do not proceed with completion until EVERYTHING has been properly reviewed and approved
+```
+
 ## Quick Completion (Simple Tasks)
 
 ### 5-Minute Completion Check:

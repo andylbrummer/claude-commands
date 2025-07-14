@@ -1,5 +1,31 @@
 # Task Execution Guidelines
 
+## Prerequisites Check
+
+### MANDATORY: Before Executing Tasks
+```markdown
+## Task Preparation Verification ✅
+- [ ] **Planning Complete**: Task planning has been completed using [tasks-plan.md](tasks-plan.md)
+- [ ] **Todo Files Created**: All required todo.md files have been created and initialized
+- [ ] **Context Available**: All necessary context and documentation is accessible
+- [ ] **Dependencies Ready**: All prerequisite tasks/subtasks are complete and archived
+- [ ] **Environment Setup**: Development environment is properly configured
+
+## Execution Readiness Check
+- [ ] **Task Files Present**: Current task files exist and contain proper planning details
+- [ ] **Success Criteria Defined**: Clear success criteria and validation commands are specified
+- [ ] **Risk Assessment Complete**: Risk level and mitigation strategies are documented
+- [ ] **Resource Availability**: Required resources (tools, access, time) are available
+
+## Current Task Status Verification
+- [ ] **Task Initialized**: Current task is properly initialized with all required information
+- [ ] **OR Execution in Process**: Task execution is already underway with proper tracking
+- [ ] **Progress Tracking**: Status tracking mechanism is in place
+- [ ] **Validation Commands**: All validation commands are tested and working
+
+**⚠️ STOP**: Do not proceed with execution until current task files are properly created and initialized
+```
+
 ## Quick Start: "Just Start Coding"
 
 ### For Simple Tasks (came here directly):

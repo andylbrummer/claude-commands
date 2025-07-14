@@ -1,6 +1,34 @@
 # Subtasks Planning Methodology
 ## Large Feature Development with Context-Aware Subagent Coordination
 
+## Prerequisites Check
+
+### MANDATORY: Before Planning Subtasks
+```markdown
+## Previous Work Verification ✅
+- [ ] **Previous Tasks Complete**: All prior individual tasks have been completed and archived
+- [ ] **Previous Subtasks Complete**: All prior large subtask features have been completed and archived
+- [ ] **Files Archived**: All previous task/subtask files have been moved to archive folders
+- [ ] **Clean Slate**: No incomplete tasks or subtasks remain in active folders
+- [ ] **Dependencies Resolved**: All blocking dependencies from previous work resolved
+
+## Large Feature Prerequisites
+- [ ] **Scope Justified**: Feature complexity justifies subtask methodology (>10 files, >16 hours, multiple domains)
+- [ ] **Architecture Readiness**: System architecture can support large feature development
+- [ ] **Resource Availability**: Multiple subagents and worktrees can be supported
+- [ ] **Integration Capability**: Cross-service integration requirements are understood
+- [ ] **Context Sources Available**: Sufficient codebase and external context sources exist
+
+## Archive and Knowledge Verification
+- [ ] **Archive Structure**: Previous work properly archived in `/archive/features/YYYY-MM-DD-feature-name/`
+- [ ] **Completion Documentation**: Previous features include completion reports and retrospectives
+- [ ] **Knowledge Transfer**: Key learnings from previous large features documented and accessible
+- [ ] **Context Updates**: Any architectural or process improvements from previous work incorporated
+- [ ] **Pattern Library**: Successful patterns from previous features documented for reuse
+
+**⚠️ STOP**: Do not proceed with subtask planning until ALL previous tasks/subtasks are complete and archived
+```
+
 ## Quick Start Decision Tree
 
 ### Choose Your Approach:
