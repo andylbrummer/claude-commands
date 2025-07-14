@@ -1,0 +1,453 @@
+# Task Planning Methodology
+
+## Quick Start Decision Tree
+
+### Choose Your Approach:
+- **🚀 Simple Task** (< 2 hours, low risk) → Skip to [tasks-execute.md](tasks-execute.md) 
+- **⚡ Medium Task** (2-8 hours, some complexity) → Use Light Planning below + [tasks-execute.md](tasks-execute.md)
+- **🎯 Complex Task** (> 8 hours, high risk/impact) → Full methodology below
+- **🔄 Replacing Functionality** → Mandatory: Full methodology + feature flags
+
+### Light Planning (5-minute version):
+```markdown
+## Quick Plan Template
+- **Risk Level**: Low/Medium/High
+- **Files Affected**: [List 3-7 specific file paths]
+- **Validation Command**: `[single command to verify success]`
+- **Success Criteria**: [1-3 specific checkable outcomes]
+- **Project Phase**: Prototype/MVP/Production
+- **Feature Flag Needed**: Yes/No (Yes if replacing anything)
+- **Context Sources**: [Key files/docs that informed approach]
+- **Similar Patterns**: [Existing code that does similar things]
+```
+
+### Real Example:
+```markdown
+## Quick Plan: Add User Avatar Display
+- **Risk Level**: Low
+- **Files Affected**: src/components/UserProfile.tsx, src/types/User.ts, tests/UserProfile.test.tsx
+- **Validation Command**: `npm test -- UserProfile`
+- **Success Criteria**: Avatar shows when user has image, fallback shows when no image, tests pass
+- **Project Phase**: Prototype
+- **Feature Flag Needed**: No
+- **Context Sources**: src/components/UserCard.tsx (existing avatar pattern), docs/design-system.md
+- **Similar Patterns**: UserCard.tsx uses same image fallback logic, consistent with design system
+```
+
+**→ Next Step**: Take this to [tasks-execute.md](tasks-execute.md) and start implementing
+
+---
+
+## Pre-Planning Analysis Phase (Full Methodology)
+
+### 1. Comprehensive Request Analysis
+```markdown
+## Request Breakdown
+- **Primary Objective**: [What is the main goal?]
+- **Secondary Objectives**: [Supporting goals or side effects]
+- **User Intent**: [Why does the user want this?]
+- **Success Definition**: [How will we know it's complete?]
+- **Scope Boundaries**: [What's explicitly in/out of scope?]
+
+## Project Phase Assessment
+- **Current Phase**: [Prototype/MVP/Beta/Production]
+- **Data Strategy**: [Recreate vs Migrate test data]
+- **Backwards Compatibility**: [Required/Nice-to-have/Not needed]
+- **Production Readiness**: [Full/Minimal/Prototype-only]
+- **User Base**: [Internal/Limited beta/Full production]
+
+## Replacement Strategy (if replacing existing functionality)
+- **Feature Flag Required**: YES (mandatory for all replacements)
+- **Rollback Plan**: [How to switch back if issues arise]
+- **Parallel Running**: [How long to run both versions]
+- **Verification Criteria**: [What proves new version works]
+- **Removal Timeline**: [When it's safe to remove old version]
+```
+
+### 2. Extensive Codebase Investigation & Context Capture
+
+#### Required Context Sources (All must be documented):
+```bash
+# Codebase Context
+find . -name "*.js" -o -name "*.ts" -o -name "*.py" | head -20
+grep -r "keyword" --include="*.js" --include="*.ts" src/
+git log --oneline -10  # Recent changes context
+npm ls --depth=0       # Dependencies
+
+# Project Documentation Context  
+ls docs/ README.md CONTRIBUTING.md
+grep -r "keyword" docs/
+git log --oneline -- docs/ | head -5
+
+# External Dependencies Context
+npm info package-name  # For each major dependency
+curl -s https://api.github.com/repos/owner/repo/releases/latest  # Latest versions
+```
+
+**Context Capture Requirements (Mandatory):**
+- [ ] **Existing Functionality**: Document what already exists, with file paths
+- [ ] **Similar Implementations**: Find and reference existing patterns in codebase
+- [ ] **Dependencies**: Version constraints, known issues, migration paths
+- [ ] **Architecture Context**: How this fits into existing system design  
+- [ ] **Recent Changes**: What has changed recently in related areas
+- [ ] **Documentation Context**: Existing docs that relate to this change
+- [ ] **External Standards**: Industry patterns, framework conventions
+- [ ] **Performance Context**: Current performance characteristics and constraints
+- [ ] **Security Context**: Existing security patterns and requirements
+
+### 3. Web Research & Documentation Review
+
+#### Required External Research (Document all sources):
+```markdown
+## Research Areas with Source Documentation
+- **Framework Documentation**: Latest version capabilities and breaking changes
+  - Source URLs: [Specific documentation links]
+  - Version compatibility: [Current vs target versions]
+  - Breaking changes: [What changes between versions]
+  
+- **Best Practices**: Industry standards for the specific functionality  
+  - Source URLs: [Industry guides, authoritative sources]
+  - Standards applied: [Which standards are relevant]
+  - Deviation justifications: [Why we differ from standards if applicable]
+  
+- **Security Considerations**: OWASP guidelines, vulnerability databases
+  - Source URLs: [OWASP links, CVE databases, security advisories]  
+  - Applicable guidelines: [Which security patterns apply]
+  - Threat model: [What threats this change addresses/introduces]
+  
+- **Performance Patterns**: Benchmarks, optimization techniques
+  - Source URLs: [Performance studies, benchmarks]
+  - Baseline metrics: [Current performance characteristics]
+  - Target metrics: [Expected performance after change]
+  
+- **Integration Patterns**: How similar systems solve this problem
+  - Source URLs: [Example implementations, case studies]
+  - Alternative approaches: [Other ways to solve this problem]
+  - Trade-offs: [Why chosen approach vs alternatives]
+```
+
+#### Context Source Documentation Template:
+```markdown
+## External Context Sources
+### Primary Documentation:
+- [Title](URL) - [Why relevant] - [Key insights]
+- [Title](URL) - [Why relevant] - [Key insights]
+
+### Code Examples/References:
+- [Repo/File](URL) - [What pattern it demonstrates]
+- [Repo/File](URL) - [What pattern it demonstrates]
+
+### Standards/Guidelines:
+- [Standard Name](URL) - [Which parts apply]
+- [Standard Name](URL) - [Which parts apply]
+
+### Dependencies/Libraries:
+- [Library Name](Documentation URL) - [Version] - [Usage pattern]
+- [Library Name](Documentation URL) - [Version] - [Usage pattern]
+```
+
+### 4. User Context Interrogation
+```markdown
+## User Interview Questions
+- **Environment**: "What's your current tech stack and constraints?"
+- **Scale**: "How many users/requests/data volume are we expecting?"
+- **Timeline**: "When do you need this completed?"
+- **Preferences**: "Any specific libraries or patterns you prefer/avoid?"
+- **Success Criteria**: "How will you test that this works correctly?"
+- **Integration**: "What other systems need to work with this?"
+```
+
+## Risk Assessment & Derisking
+
+### High-Risk Categories
+```markdown
+⚠️ **CRITICAL RISKS** - Require approval before proceeding:
+
+🔒 **Security Risks**
+- Authentication/authorization changes
+- Input validation modifications  
+- Credential handling
+- Database access pattern changes
+- External API integrations
+
+💥 **Breaking Change Risks**
+- Public API modifications
+- Database schema changes
+- Configuration format changes
+- Dependency major version updates
+
+⚡ **Performance Risks**
+- Database query modifications
+- Large data processing
+- Memory-intensive operations
+- Network-heavy operations
+
+🔧 **Integration Risks**
+- Third-party service dependencies
+- Cross-service communication changes
+- State management modifications
+```
+
+### Risk Mitigation Strategies
+```markdown
+## Risk Level: HIGH
+**Strategy**: Minimal Viable Implementation + Mandatory Safety
+- Create smallest possible proof-of-concept first
+- Comprehensive error handling and logging
+- **MANDATORY: Feature flags for any functionality replacement**
+- Extensive test coverage (unit + integration)
+- Rollback plan documented and tested
+- Parallel operation period planned
+
+## Risk Level: MEDIUM  
+**Strategy**: Incremental Development
+- Break into smaller, testable chunks
+- Mock external dependencies
+- Performance monitoring
+- Backwards compatibility maintained
+- Feature flags for user-facing changes
+
+## Risk Level: LOW
+**Strategy**: Standard Development
+- Follow established patterns
+- Basic test coverage
+- Standard error handling
+```
+
+### Data Strategy Decision Framework
+```markdown
+## Prototype Phase: Recreate vs Migrate
+**Choose RECREATE when**:
+- Data volume is small (<1000 records)
+- Schema changes are extensive
+- Data relationships are simple
+- Test data generation is automated
+- Migration complexity > recreation time
+
+**Choose MIGRATE when**:
+- Data has complex business logic
+- Historical data is valuable for testing
+- Relationships are complex and hard to recreate
+- Migration scripts needed for production anyway
+
+## Production Phase: Always Migrate
+- Comprehensive migration strategy required
+- Zero-downtime approach planned
+- Rollback procedures tested
+- Data integrity validation automated
+```
+
+## Task Definition Framework
+
+### File Scope Methodology
+```markdown
+## File Analysis
+**Existing Files**: [List files that need modification]
+**New Files**: [List files that need creation]
+**Dependencies**: [Files that might be affected indirectly]
+**Test Files**: [Corresponding test files needed]
+
+## Scope Rules
+- Max 3-7 files per task (for complexity management)
+- Group logically related changes together
+- Separate high-risk changes into isolated tasks
+- Order tasks by dependency chain
+```
+
+### Completion Criteria Template
+```markdown
+## Success Criteria for [Task Name]
+**Functional Requirements:**
+- [ ] Feature works as specified: [specific behavior]
+- [ ] Error cases handled: [list expected error scenarios]
+- [ ] Integration verified: [how it connects to existing system]
+
+**Technical Requirements:**
+- [ ] Code follows project conventions: `npm run lint`
+- [ ] Type safety maintained: `npm run typecheck` 
+- [ ] Tests pass: `npm test`
+- [ ] Performance acceptable: [specific metrics]
+
+**Documentation Requirements:**
+- [ ] Code is self-documenting
+- [ ] Complex logic has comments
+- [ ] Public APIs documented
+- [ ] Breaking changes noted
+
+**Validation Commands:**
+```bash
+# Specific commands to verify success
+npm run build
+npm test -- --testNamePattern="feature-name"
+curl -X POST /api/endpoint -d '{"test":"data"}'
+```
+```
+
+### Multiple Approach Evaluation
+```markdown
+## Approach Analysis for [Feature Name]
+
+### Approach 1: [Name]
+**Pros**: [Benefits and advantages]
+**Cons**: [Drawbacks and risks]  
+**Complexity**: Low/Medium/High
+**Timeline**: [Estimated time]
+**Risk Level**: Low/Medium/High
+
+### Approach 2: [Name]
+**Pros**: [Benefits and advantages]
+**Cons**: [Drawbacks and risks]
+**Complexity**: Low/Medium/High  
+**Timeline**: [Estimated time]
+**Risk Level**: Low/Medium/High
+
+### Approach 3: [Name]
+**Pros**: [Benefits and advantages]
+**Cons**: [Drawbacks and risks]
+**Complexity**: Low/Medium/High
+**Timeline**: [Estimated time] 
+**Risk Level**: Low/Medium/High
+
+## Recommendation: [Chosen Approach]
+**Reasoning**: [Why this approach is best given constraints]
+**Fallback**: [If this doesn't work, what's plan B?]
+```
+
+## Todo File Generation
+
+### Context-Rich Template Structure
+```markdown
+# Todo: [Feature/Fix Name]
+
+## Context & Background
+**Request**: [Original user request]
+**Analysis Date**: [Date]
+**Estimated Effort**: [Hours/Days]
+**Risk Level**: HIGH/MEDIUM/LOW
+
+### Codebase Context
+**Existing Functionality**: 
+- ✅ [What already works] - Files: [specific paths]
+- ❌ [What's missing] - Location: [where it should go]
+- ⚠️ [What's partially implemented] - Files: [specific paths]
+
+**Similar Implementations**: 
+- [File path] - [What pattern it uses] - [How it's relevant]
+- [File path] - [What pattern it uses] - [How it's relevant]
+
+**Dependencies**: 
+- [Package name]@[version] - [Purpose] - [Documentation URL]
+- [Package name]@[version] - [Purpose] - [Documentation URL]
+
+**Architecture Integration**:
+- [How this fits into existing system]
+- [Components it will interact with] - Files: [paths]
+- [Data flow/communication patterns]
+
+### External Context Sources
+**Primary Documentation**:
+- [Title](URL) - [Key insights that influenced approach]
+- [Title](URL) - [Key insights that influenced approach]
+
+**Code References**:
+- [Repo/Example](URL) - [Pattern demonstrated] 
+- [Repo/Example](URL) - [Pattern demonstrated]
+
+**Standards Applied**:
+- [Standard](URL) - [Which parts are relevant]
+- [Standard](URL) - [Which parts are relevant]
+
+**Performance/Security Context**:
+- Baseline: [Current metrics/security posture]
+- Target: [Expected improvements/security enhancements]
+- Constraints: [Limitations that affect implementation]
+
+### User/Business Context
+- **User Need**: [Why this is being built]
+- **Success Criteria**: [How user will know it works]
+- **Project Phase**: [Prototype/MVP/Production requirements]
+- **Timeline**: [Any deadline constraints]
+
+## Implementation Plan
+
+### Phase 1: Foundation (Risk: [Level])
+**Files**: [Exact file paths]
+**Objective**: [Clear goal]
+**Validation**: [How to verify success]
+
+- [ ] Task 1: [Specific action]
+  - **Risk**: [Level and reasoning]  
+  - **Files**: [Exact paths]
+  - **Success Criteria**: 
+    - [ ] [Specific checkable outcome]
+    - [ ] [Command to verify]: `specific command`
+  - **Rollback**: [How to undo if needed]
+
+### Phase 2: Core Implementation (Risk: [Level])
+[Continue pattern...]
+
+### Phase 3: Integration & Testing (Risk: [Level])
+[Continue pattern...]
+
+## Gotchas & Considerations
+- **Known Issues**: [From investigation]
+- **Edge Cases**: [Scenarios to test]
+- **Performance**: [Expected impact]
+- **Backwards Compatibility**: [What might break]
+- **Security**: [Access control considerations]
+
+## Definition of Done
+- [ ] All tasks completed and verified
+- [ ] Tests pass: `[specific test commands]`
+- [ ] Performance acceptable: [metrics]
+- [ ] Security review passed
+- [ ] Documentation updated
+- [ ] Code review completed (if applicable)
+```
+
+## Planning Output → Execution Handoff
+
+### Create todo.md with this format:
+```markdown
+# Todo: [Feature/Fix Name]
+**Generated from**: [Light/Full] Planning on [Date]
+**Next Phase**: [tasks-execute.md](tasks-execute.md)
+
+## Context Summary
+- **Risk Level**: [Level] | **Project Phase**: [Phase] 
+- **Estimated Effort**: [Time] | **Files**: [Count]
+- **Feature Flag Required**: [Yes/No]
+
+## Ready-to-Execute Tasks
+[Tasks from planning with exact format needed for execution]
+
+## Execution Notes
+- **Start with**: [First task - usually highest risk]
+- **Validation**: Run `[command]` after each task
+- **Commit pattern**: `[component]: [action taken]`
+```
+
+## Approval Gate
+
+### Pre-Implementation Checklist
+```markdown
+## Ready for Implementation? 
+- [ ] High-risk items identified and mitigation planned
+- [ ] File scope is reasonable (3-7 files max per task)
+- [ ] Success criteria are specific and measurable  
+- [ ] Validation commands are executable
+- [ ] Dependencies are understood
+- [ ] Rollback plan exists for high-risk changes
+- [ ] User has reviewed and approved the plan
+- [ ] todo.md created in execution-ready format
+
+## Risk Communication
+⚠️ **HIGH RISK ITEMS REQUIRING APPROVAL**:
+[List any high-risk items with reasoning]
+
+✅ **PROCEED**: Plan is comprehensive and risks are mitigated → Go to [tasks-execute.md](tasks-execute.md)
+🛑 **PAUSE**: Get approval for high-risk items before implementation
+
+## Handoff Complete
+**Planning Phase Complete** → **Next: [tasks-execute.md](tasks-execute.md)**
+```
