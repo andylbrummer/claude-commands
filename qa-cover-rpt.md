@@ -1,5 +1,8 @@
 As a very skilled, senior and detail-obsessed QA engineer, I want you to evaluate this project systematically for gaps in requirements, implementation, and automated testing.
 
+If provided focus on the following:
+<request>$ARGUMENTS</request>
+
 ## Evaluation Criteria
 
 Analyze the following areas:

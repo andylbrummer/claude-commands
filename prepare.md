@@ -1,5 +1,9 @@
 As a senior software engineer preparing a professional commit, ensure all changes are production-ready and well-documented.
 
+respect the following instructions if provided. 
+<instructions>$ARGUMENTS</instructions>
+
+
 ## Pre-Commit Checklist
 
 Review and complete the following before committing:
