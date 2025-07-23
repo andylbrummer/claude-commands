@@ -1,5 +1,5 @@
-# Subtasks Planning Methodology
-## Large Feature Development with Context-Aware Subagent Coordination
+# Prototype-First Subtasks Planning Methodology
+## Assumption-Driven Feature Development with AI Agent Coordination
 
 ## Prerequisites Check
 
@@ -39,9 +39,9 @@
 
 ---
 
-## Phase 1: Master Request Analysis & Context Capture
+## Phase 1: Request Analysis & Critical Assumption Identification
 
-### 1. Deep Request Understanding
+### 1. Deep Request Understanding with Assumption Focus
 ```markdown
 ## Master Request Analysis
 **Original Request**: [Copy exact user request]
@@ -50,6 +50,18 @@
 **Project Phase**: [Prototype/MVP/Production]
 **Timeline Constraints**: [Any deadline pressures]
 **Integration Scope**: [Services/systems affected]
+
+## Critical Assumptions Identification (NEW)
+**Technical Assumptions**: [What do we assume about APIs, performance, integrations?]
+**Business Assumptions**: [What do we assume about user behavior, requirements?]
+**Architecture Assumptions**: [What do we assume about system capabilities?]
+**Resource Assumptions**: [What do we assume about time, complexity, skills?]
+**Integration Assumptions**: [What do we assume about external services?]
+
+## Assumption Risk Assessment
+**High-Risk Assumptions**: [Assumptions that could invalidate entire plan]
+**Medium-Risk Assumptions**: [Assumptions that could require significant changes]
+**Low-Risk Assumptions**: [Assumptions with minimal plan impact]
 ```
 
 ### 2. Comprehensive Codebase Investigation
@@ -143,9 +155,53 @@ low_change_areas:
 - **Testing Standards**: [Testing Strategy](URL) - [Coverage requirements] - [Test patterns]
 ```
 
-## Phase 2: Master Feature Breakdown & Task Decomposition
+## Phase 2: Lightweight Investigation & Assumption Testing Planning
 
-### Architecture-First Decomposition
+### Investigation Applications (NEW - Before Architecture)
+```markdown
+## Pre-Planning Investigation Strategy
+**Hypothesis**: Build tiny investigation apps to validate critical assumptions before planning
+
+### Investigation Application Types
+1. **API Explorer Apps**: 50-100 line scripts to test API assumptions
+2. **Integration Spike Apps**: Minimal apps to test service integration patterns  
+3. **Performance Test Apps**: Simple benchmarks to validate performance assumptions
+4. **Data Format Validators**: Quick scripts to verify data structure assumptions
+5. **Library Compatibility Tests**: Test scripts for dependency assumptions
+
+### Investigation App Guidelines
+- **Time Limit**: 30-60 minutes per investigation app
+- **Code Limit**: 50-200 lines maximum
+- **Purpose**: Validate/invalidate specific assumption quickly
+- **Output**: Evidence for planning decisions
+
+### Example Investigation Apps
+```bash
+# API Data Format Investigation (30 min)
+curl -H "Authorization: Bearer $TOKEN" https://api.service.com/users/123 | jq
+# Result: User object missing 'email' field - assumption FAILED
+
+# Performance Investigation (45 min)  
+# Simple load test script to validate response time assumptions
+for i in {1..100}; do
+  curl -w "%{time_total}\n" https://api.service.com/data
+done
+# Result: Average 2.3s response - assumption FAILED (expected <500ms)
+
+# Integration Investigation (60 min)
+# Minimal test of service A calling service B
+node test-integration.js
+# Result: CORS issues discovered - assumption PARTIALLY FAILED
+```
+
+### Investigation Results Integration
+- **Assumption Status**: VALIDATED / FAILED / PARTIALLY_FAILED
+- **Plan Impact**: NO_CHANGE / MINOR_ADJUSTMENT / MAJOR_REVISION / APPROACH_CHANGE
+- **Evidence**: Specific measurements, error messages, performance data
+- **Alternatives**: Alternative approaches discovered during investigation
+```
+
+### Architecture-First Decomposition (Updated with Investigation Results)
 ```markdown
 ## Feature Architecture Design
 
@@ -514,9 +570,9 @@ integration_tasks:
 - **Documentation Tasks** (`07-docs-*`) → Technical Writer
 ```
 
-## Phase 3: Context Package Creation
+## Phase 3: Assumption-Validated Context Package Creation
 
-### Master Context Package Structure
+### Master Context Package Structure (Enhanced with Investigation Results)
 ```markdown
 ## Context Package: /requests/<feature-name>/context/
 
@@ -532,17 +588,25 @@ integration_tasks:
 - Reference implementations with adaptation notes
 - Version compatibility matrices
 
-### architecture-decisions.md
-- Design decisions with rationale
-- Trade-offs and alternatives considered
-- Integration patterns chosen
-- Risk mitigation strategies
+### assumption-testing-results.md (NEW)
+- Investigation application results and evidence
+- Failed assumptions with validated alternatives
+- Performance characteristics discovered
+- Integration challenges identified
+- Updated technical approach based on testing
 
-### implementation-patterns.md
+### architecture-decisions.md (Updated)
+- Design decisions with rationale (based on validated assumptions)
+- Trade-offs and alternatives considered (tested alternatives)
+- Integration patterns chosen (validated patterns)
+- Risk mitigation strategies (evidence-based)
+
+### implementation-patterns.md (Updated)
 - Code patterns to follow from existing codebase
-- Naming conventions and style guidelines
-- Error handling patterns
-- Testing patterns and requirements
+- Validated integration patterns from investigation
+- Performance optimization patterns (based on testing)
+- Error handling patterns (including discovered edge cases)
+- Testing patterns and requirements (updated with investigation insights)
 ```
 
 ## Phase 4: Task File Generation
@@ -732,14 +796,17 @@ ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id
 
 ## Master Planning Output
 
-### Planning Complete Checklist
+### Planning Complete Checklist (Enhanced with Assumption Testing)
 ```markdown
-## Ready for Subagent Execution
-- [ ] **Context Package Complete**: All required context documented
-- [ ] **Task Files Generated**: Each task has complete context reference
+## Ready for Assumption-Validated Execution
+- [ ] **Critical Assumptions Tested**: High-risk assumptions validated through investigation apps
+- [ ] **Investigation Results Documented**: All investigation app results in assumption-testing-results.md
+- [ ] **Alternative Approaches Identified**: Backup approaches tested and documented for failed assumptions
+- [ ] **Context Package Complete**: All required context documented with investigation insights
+- [ ] **Task Files Generated**: Each task has complete context reference including tested approaches
 - [ ] **Worktree Structure**: Git worktrees ready for parallel development
-- [ ] **Integration Plan**: Cross-task dependencies mapped
-- [ ] **Risk Mitigation**: High-risk items have specific strategies
+- [ ] **Integration Plan**: Cross-task dependencies mapped with validated integration patterns
+- [ ] **Risk Mitigation**: High-risk items have evidence-based mitigation strategies
 - [ ] **Source Validation**: All external sources verified and accessible
 
 ## Task Sizing Assessment (MANDATORY)
@@ -763,8 +830,8 @@ ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id
 - [ ] **Architecture Integration**: Clear integration points defined
 - [ ] **Implementation Guidance**: Concrete patterns for subagents to follow
 
-## Handoff to Execution Phase
-**Master Planning Complete** → **Next: [subtasks-execute.md](subtasks-execute.md)**
+## Handoff to Assumption Testing Phase
+**Master Planning Complete** → **Next: [execute.md](execute.md) - Assumption Testing Phase**
 
 ### FILES CREATED - VERIFICATION REQUIRED ✅
 **User must verify these files exist before proceeding:**
@@ -774,19 +841,24 @@ ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id
    - **Files**: `codebase-analysis.md`, `external-sources.md`, `architecture-decisions.md`, `implementation-patterns.md`
    - **Verify with**: `ls -la requests/*/context/ && find requests/*/context/ -name "*.md" -type f`
 
-2. **Individual Task Files**:
+2. **Assumption Testing Directory**:
+   - **Location**: `/requests/<feature-name>/assumptions/`
+   - **Files**: `critical-assumptions.md`, `investigation-apps-plan.md`
+   - **Verify with**: `ls -la requests/*/assumptions/ && find requests/*/assumptions/ -name "*.md" -type f`
+
+3. **Task Files (Draft)**:
    - **Location**: `/requests/<feature-name>/tasks/`
-   - **Files**: `01-task-name.md`, `02-task-name.md`, etc. (one per subtask)
+   - **Files**: `01-task-name.md`, `02-task-name.md`, etc. (to be updated after assumption testing)
    - **Verify with**: `ls -la requests/*/tasks/ && find requests/*/tasks/ -name "*.md" -type f`
 
-3. **Worktree Structure**:
+4. **Worktree Structure**:
    - **Location**: `~/work/worktrees/<feature-name>/`
    - **Contains**: Individual worktree directories for each task
    - **Verify with**: `ls -la ~/work/worktrees/*/`
 
-4. **Master Planning Summary**:
+5. **Master Planning Summary**:
    - **Location**: `requests/<feature-name>/planning-summary.md`
-   - **Contains**: Overall feature breakdown and task coordination plan
+   - **Contains**: Overall feature breakdown, assumptions, and prototype-first approach
    - **Verify with**: `cat requests/*/planning-summary.md | head -20`
 
 **⚠️ CRITICAL**: The next agent (execution phase) will start with ZERO CONTEXT from this conversation. It will ONLY have access to:
@@ -794,10 +866,17 @@ ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id
 - The current codebase state
 - No memory of this planning discussion
 - No access to external research conducted during planning
+- No knowledge of assumption reasoning - only the documented results
 
 **⚠️ STOP AND VERIFY**: User must confirm all files exist at specified locations before proceeding to execution phase.
 
-**Next Step**: Only proceed to [subtasks-execute.md](subtasks-execute.md) after user confirms file creation.
+**Next Step**: Only proceed to [execute.md](execute.md) after user confirms file creation.
+
+## AI Agent Advantage Summary
+**Speed Multiplier**: AI agents can build 5-10 investigation apps in time for 1 traditional analysis
+**Risk Reduction**: Failed assumptions discovered before full implementation investment
+**Quality Through Testing**: Multiple approaches tested, best approach selected based on evidence
+**Adaptive Planning**: Plan adjusts based on real evidence rather than assumptions
 ```
 
-This planning methodology ensures that every subagent receives comprehensive, contextual information needed for effective parallel development while maintaining consistency across the entire feature implementation.
+This assumption-driven planning methodology ensures that critical uncertainties are resolved through rapid investigation before committing to full implementation, leveraging AI agent speed to test multiple approaches quickly and select the optimal solution based on evidence rather than assumptions.

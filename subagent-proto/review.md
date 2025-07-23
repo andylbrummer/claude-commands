@@ -1,32 +1,36 @@
-# Subtasks Review & Integration Verification
-## Cross-Task Integration Review for Large Features
+# Prototype-Validated Review & Integration Verification
+## Assumption-Tested Feature Integration Review
 
 ## Prerequisites Check
 
-### MANDATORY: Before Reviewing Subtasks
+### MANDATORY: Before Reviewing Prototype-Based Implementation
 ```markdown
-## Subtask Execution Verification ✅
-- [ ] **All Subtasks Complete**: Every individual subtask has been fully executed and implemented
-- [ ] **Context Application Verified**: All subagents successfully applied context patterns consistently
-- [ ] **Cross-Task Integration Working**: Integration between parallel tasks has been verified
-- [ ] **Validation Commands Passed**: All validation commands across all subtasks have succeeded
-- [ ] **Tests Passing**: All tests (unit, integration, e2e) are passing across the entire feature
+## Assumption Testing Verification ✅
+- [ ] **All Critical Assumptions Tested**: High-risk assumptions validated through investigation apps
+- [ ] **Failed Assumptions Resolved**: Alternative approaches tested and working solutions found
+- [ ] **Plan Adjustment Complete**: Overall plan updated based on assumption testing results
+- [ ] **Production Implementation Complete**: Final implementation completed using validated approaches
 
-## Feature-Level Completeness Check
-- [ ] **End-to-End Functionality**: Complete user workflows function across all integrated components
-- [ ] **Performance Validated**: Performance requirements met across all components of the large feature
-- [ ] **Security Review Complete**: Security considerations validated across the entire feature surface
-- [ ] **Cross-Service Integration**: All cross-service integration points are working correctly
-- [ ] **Feature Flags Implemented**: Feature flags properly implemented for safe deployment (if applicable)
+## Prototype-to-Production Verification
+- [ ] **Assumption Testing Results Applied**: Production implementation follows validated approaches from testing
+- [ ] **Failed Assumption Mitigations**: Alternative approaches properly implemented where assumptions failed
+- [ ] **Performance Matches Testing**: Production performance aligns with assumption testing results
+- [ ] **Integration Patterns Validated**: Production uses integration patterns validated during testing
 
-## Context and Quality Verification
-- [ ] **Pattern Consistency**: All subtasks followed consistent patterns from the context package
-- [ ] **External Standards Compliance**: External standards properly applied across all components
-- [ ] **Architecture Integrity**: Architecture decisions maintained throughout feature implementation
-- [ ] **Documentation Complete**: Feature-level documentation updated and comprehensive
-- [ ] **Monitoring and Alerting**: Appropriate monitoring configured for the complete feature
+## Feature-Level Completeness Check (Enhanced)
+- [ ] **End-to-End Functionality**: Complete user workflows function using validated approaches
+- [ ] **Performance Validated**: Performance meets expectations based on assumption testing
+- [ ] **Security Review Complete**: Security considerations validated with tested approaches
+- [ ] **Cross-Service Integration**: Integration points work as validated during assumption testing
+- [ ] **Assumption-Based Risk Mitigation**: Risk mitigation strategies based on testing evidence
 
-**⚠️ STOP**: Do not proceed with review until ALL subtasks are complete and feature-level verification has succeeded
+## Assumption-Driven Quality Verification
+- [ ] **Validated Patterns Applied**: Production uses patterns proven during assumption testing
+- [ ] **Evidence-Based Decisions**: All architectural decisions supported by testing evidence
+- [ ] **Alternative Approach Documentation**: Backup approaches documented for discovered risks
+- [ ] **Testing-Informed Monitoring**: Monitoring based on performance characteristics discovered during testing
+
+**⚠️ STOP**: Do not proceed with review until assumption testing phase completed and production implementation follows validated approaches
 ```
 
 ## Quick Review Decision Tree
@@ -38,47 +42,63 @@
 
 ---
 
-## Quick Integration Check (Simple Features)
+## Quick Assumption-Validation Check (Simple Features)
 
-### Essential Cross-Task Validation:
+### Essential Assumption Testing Validation:
 ```bash
-# Run integration validation across all worktrees
+# Run assumption testing validation across all worktrees
 cd ~/work/worktrees/<feature>/
 
-# MANDATORY: Check all execution logs exist
-echo "=== Execution Log Validation ==="
-for task_dir in */; do
-    if [[ ! -f "$task_dir/execution-log.md" ]]; then
-        echo "❌ FATAL: Missing execution log in $task_dir"
-        exit 1
-    fi
-    echo "✅ Execution log found: $task_dir"
-done
+# MANDATORY: Check assumption testing completed
+echo "=== Assumption Testing Validation ==="
+if [[ ! -f "requests/<feature>/ASSUMPTION_TESTING_COMPLETE" ]]; then
+    echo "❌ FATAL: Assumption testing phase not complete"
+    exit 1
+fi
 
-# Context consistency check
-for task_dir in */; do
-    echo "Checking context application: $task_dir"
-    if [[ -f "$task_dir/completion_report.md" ]]; then
-        grep -q "Context Applied" "$task_dir/completion_report.md" && echo "✅ Context applied"
+# Check assumption testing results exist
+if [[ ! -f "requests/<feature>/assumptions/testing-results-summary.md" ]]; then
+    echo "❌ FATAL: Missing assumption testing results"
+    exit 1
+fi
+
+# Validate critical assumptions resolved
+echo "=== Critical Assumption Resolution Check ==="
+if grep -q "FAILED.*without.*alternative" "requests/<feature>/assumptions/"*.md; then
+    echo "❌ FATAL: Unresolved critical assumptions found"
+    exit 1
+fi
+
+# Validate production implementation matches tested approach
+echo "=== Production-Testing Alignment Check ==="
+for prod_dir in final/*/; do
+    if [[ -f "$prod_dir/PRODUCTION_COMPLETE" ]]; then
+        echo "✅ Production complete: $prod_dir"
+        # Check if lessons learned were applied
+        if [[ ! -f "$prod_dir/LESSONS_LEARNED.md" ]]; then
+            echo "❌ Missing lessons learned application in $prod_dir"
+        fi
     else
-        echo "❌ Missing completion report"
+        echo "❌ Production incomplete: $prod_dir"
     fi
 done
 
-# Integration tests
+# Integration tests with validated approach
 npm run test:integration -- --grep "<feature>"
 npm run lint
 npm run typecheck
 ```
 
-### Quick Integration Checklist:
-- [ ] All subagent tasks completed with context applied
-- [ ] Integration tests pass across all components
-- [ ] No conflicts between parallel implementations
+### Quick Assumption-Validation Checklist:
+- [ ] All critical assumptions tested and resolved
+- [ ] Production implementation uses validated approaches from testing
+- [ ] Alternative approaches documented for any failed assumptions
+- [ ] Performance matches assumption testing predictions
+- [ ] Integration patterns validated during testing phase
 - [ ] Feature flags implemented (if replacing functionality)
-- [ ] Context consistency maintained across tasks
+- [ ] Assumption testing insights applied throughout production
 
-**Simple features**: If all pass → Go to [subtasks-complete.md](subtasks-complete.md) (Quick Completion)
+**Simple features**: If all pass → Go to [complete.md](complete.md) (Quick Completion)
 
 ---
 

@@ -306,6 +306,245 @@
 - **Documentation Generation**: [Automated documentation from context and implementation]
 ```
 
+## MANDATORY Subtasks Completion Requirements
+
+### ⚠️ CRITICAL: Large Feature Completion Phase Deliverables
+```markdown
+## 1. Updated User Documentation ✅
+- [ ] **Feature Documentation Updated**: All user-facing documentation reflects the complete feature
+- [ ] **Integration Documentation**: How the feature integrates with existing systems
+- [ ] **User Workflow Documentation**: End-to-end user workflows updated
+- [ ] **API Documentation**: All new APIs documented with examples
+- [ ] **Configuration Documentation**: New configuration options documented
+- [ ] **Migration Guides**: Any required migration steps documented
+- [ ] **Troubleshooting Guides**: Common issues and solutions documented
+
+## 2. Simple Feature Review Command/Link ✅
+- [ ] **Feature Demo Command**: Single command to demonstrate the complete feature
+- [ ] **Integration Test Command**: Command to verify all subtasks work together
+- [ ] **Feature Toggle Command**: Command to enable/disable the feature (if applicable)
+- [ ] **Health Check Command**: Command to verify feature is working correctly
+- [ ] **Performance Test Command**: Command to verify performance characteristics
+
+## 3. Archive Location Documentation ✅
+- [ ] **Main Archive Path**: Exact location of complete feature archive
+- [ ] **Subtask Archives**: Locations of individual subtask archives
+- [ ] **Context Archive**: Location of context package and research
+- [ ] **Worktree Archives**: Location of all worktree bundles
+- [ ] **Integration Archive**: Location of integration test results and reports
+- [ ] **Archive Access Guide**: Clear instructions for accessing archived materials
+
+## 4. Cross-Task Lessons Learned Extraction ✅
+- [ ] **Integration Lessons**: What worked/didn't work for cross-task integration
+- [ ] **Context Effectiveness**: How well context packages enabled independent work
+- [ ] **Parallel Development**: Lessons from parallel subtask development
+- [ ] **Coordination Overhead**: Analysis of coordination costs and benefits
+- [ ] **Quality Consistency**: How well quality was maintained across subtasks
+- [ ] **Performance Impact**: Cumulative performance impact of all subtasks
+- [ ] **Technical Debt Assessment**: Technical debt introduced/resolved across feature
+
+## 5. Archive vs Active Work Warnings ✅
+- [ ] **Feature Archive Status**: Clear marking of complete feature as archived
+- [ ] **Subtask Archive Status**: All subtask plans marked as historical reference
+- [ ] **Context Archive Status**: Context packages marked as reference material
+- [ ] **Integration Plans Status**: Integration plans marked as completed/archived
+- [ ] **Future Work Guidance**: Clear guidance for future agents on using archives
+```
+
+### Critical Large Feature Completion Template
+```markdown
+# LARGE FEATURE COMPLETION DELIVERABLES
+
+## 1. User Documentation Updates
+
+### Feature-Level Documentation Changes:
+- **Feature Overview**: [path/to/feature-overview] - **Status**: Updated
+- **User Workflows**: [path/to/workflow-docs] - **Status**: Updated  
+- **API Documentation**: [path/to/api-docs] - **Status**: Updated
+- **Configuration Guide**: [path/to/config-docs] - **Status**: Updated
+- **Migration Guide**: [path/to/migration-guide] - **Status**: Created/Updated
+- **Troubleshooting**: [path/to/troubleshooting] - **Status**: Updated
+
+### Documentation Verification:
+- [ ] All feature workflows tested end-to-end
+- [ ] All API examples verified working
+- [ ] All configuration options tested
+- [ ] Migration guide tested on realistic data
+- [ ] Troubleshooting guide covers real issues encountered
+
+## 2. Feature Review Information
+
+### Complete Feature Demo:
+```bash
+# Command to demonstrate the complete feature:
+[exact command sequence to show full feature working]
+```
+
+### Feature Components:
+- **Main Entry Points**: `/path/to/main/feature/entry/points`
+- **Core Services**: `/path/to/core/services`
+- **User Interfaces**: `/path/to/ui/components`
+- **Configuration Files**: `/path/to/config/files`
+- **Integration Points**: `/path/to/integration/points`
+- **Test Suites**: `/path/to/test/suites`
+
+### Feature Verification Commands:
+```bash
+# Health check command:
+[command to verify feature health]
+
+# Integration test command:
+[command to run integration tests]
+
+# Performance test command:
+[command to verify performance]
+
+# Feature toggle commands:
+[commands to enable/disable feature if applicable]
+```
+
+## 3. Complete Archive Documentation
+
+### Main Feature Archive:
+- **Path**: `/archive/features/YYYY-MM-DD-feature-name/`
+- **Created**: [date]
+- **Archived By**: [task master name/role]
+
+### Archive Structure:
+```
+/archive/features/YYYY-MM-DD-feature-name/
+├── README.md                    # Archive overview with warnings
+├── ARCHIVE_WARNING.md           # Critical warnings for future agents
+├── context/                     # Context packages used
+│   ├── codebase-analysis/
+│   ├── external-docs/
+│   └── similar-implementations/
+├── tasks/                       # All subtask documentation
+│   ├── task-01-research/
+│   ├── task-02-backend/
+│   ├── task-03-frontend/
+│   └── task-04-integration/
+├── learnings/                   # Retrospectives and lessons
+│   ├── feature-retrospective.md
+│   ├── integration-review-report.md
+│   └── cross-task-lessons.md
+└── worktrees/                   # Git bundles of all worktrees
+    ├── research-worktree.bundle
+    ├── backend-worktree.bundle
+    └── frontend-worktree.bundle
+```
+
+### Archive Access Commands:
+```bash
+# To explore the complete archive:
+ls -la /archive/features/YYYY-MM-DD-feature-name/
+cat /archive/features/YYYY-MM-DD-feature-name/README.md
+
+# To review specific subtask:
+cat /archive/features/YYYY-MM-DD-feature-name/tasks/task-01-research/retrospective.md
+
+# To restore a worktree for reference:
+git clone /archive/features/YYYY-MM-DD-feature-name/worktrees/backend-worktree.bundle temp-reference
+```
+
+## 4. Cross-Task Lessons Learned
+
+### Integration Effectiveness:
+- **Cross-Task Coordination**: [How well subtasks coordinated]
+- **Interface Stability**: [How stable cross-task interfaces were]
+- **Integration Complexity**: [Actual vs expected integration effort]
+- **Conflict Resolution**: [How conflicts between subtasks were resolved]
+
+### Context Package Effectiveness:
+- **Context Completeness**: [How well context enabled independent work]
+- **Context Usage**: [How effectively subtasks used provided context]
+- **Context Evolution**: [How context was updated during development]
+- **Context Distribution**: [How well context reached all subtasks]
+
+### Parallel Development Analysis:
+- **True Parallelism Achieved**: [What percentage of work was truly parallel]
+- **Coordination Overhead**: [Time spent on coordination vs development]
+- **Worktree Management**: [Effectiveness of worktree-based approach]
+- **Merge Complexity**: [Difficulty of integrating parallel work]
+
+### Quality Consistency:
+- **Standard Application**: [How consistently standards were applied]
+- **Code Quality Variance**: [Quality differences between subtasks]
+- **Testing Consistency**: [How consistently testing approaches were applied]
+- **Documentation Quality**: [Consistency of documentation across subtasks]
+
+### Performance Impact Assessment:
+- **Individual Performance**: [Performance of each subtask]
+- **Cumulative Impact**: [Total performance impact of complete feature]
+- **Performance Regression**: [Any performance regressions introduced]
+- **Optimization Opportunities**: [Performance improvements identified]
+
+### Time/Effort Analysis:
+- **Planned vs Actual**: [Comparison of estimated vs actual effort]
+- **Parallel Efficiency**: [Efficiency gains from parallel development]
+- **Coordination Costs**: [Time spent on coordination and integration]
+- **Context Preparation ROI**: [Return on investment for context preparation]
+
+## 5. ⚠️ CRITICAL: Feature Archive Status Warnings
+
+### For Future Agents:
+```
+🔴 WARNING: COMPLETE FEATURE ARCHIVED - REFERENCE ONLY
+
+- This feature is COMPLETE and all subtasks are FINISHED
+- Archived plans, todos, and context are HISTORICAL REFERENCE ONLY
+- DO NOT execute archived subtask plans
+- DO NOT reopen archived subtask todos
+- Use archives for LEARNING about successful feature development
+- Always create NEW plans for NEW features
+```
+
+### Feature Archive Usage Guidelines:
+✅ **DO**: Study feature architecture and integration patterns
+✅ **DO**: Learn from cross-task coordination approaches
+✅ **DO**: Reference context preparation methods
+✅ **DO**: Understand parallel development lessons
+✅ **DO**: Review integration testing strategies
+✅ **DO**: Study performance optimization approaches
+
+❌ **DON'T**: Execute any archived subtask plans
+❌ **DON'T**: Reopen any archived subtask todos
+❌ **DON'T**: Copy archived plans without complete update for current context
+❌ **DON'T**: Assume archived technical decisions still apply
+❌ **DON'T**: Treat any archived work as active
+❌ **DON'T**: Modify archived materials (they are historical record)
+
+### Archive Header Template for All Subtasks:
+```markdown
+# 🗄️ ARCHIVED SUBTASK - REFERENCE ONLY
+
+**Feature**: [feature-name]
+**Subtask**: [subtask-name] 
+**Completed**: [date]
+**Status**: ✅ COMPLETED - 📚 ARCHIVED
+
+## ⚠️ SUBTASK ARCHIVE WARNING
+
+🔴 **This subtask is COMPLETE and part of a FINISHED feature**
+- DO NOT execute plans or todos from this archive
+- This subtask was successfully integrated into complete feature
+- Use for LEARNING how this type of subtask was approached
+- Create NEW subtask plans for NEW features
+
+## Integration Status
+- **Integration**: ✅ Successfully integrated with [list other subtasks]
+- **Feature Status**: ✅ Complete feature deployed and working
+- **Quality Gates**: ✅ All quality gates passed
+
+## Learning Value
+✅ **Learn from**: retrospective.md, technical-notes.md, integration-approach.md
+✅ **Reference**: Code patterns and architecture decisions
+✅ **Understand**: How this subtask fit into larger feature
+
+❌ **Don't**: Execute todos, copy plans, assume decisions still apply
+```
+```
+
 ## Feature Archival & Knowledge Transfer
 
 ### Archive Structure Creation
@@ -315,14 +554,17 @@ FEATURE_NAME="<feature-name>"
 ARCHIVE_DATE=$(date +%Y%m%d)
 ARCHIVE_PATH="/archive/features/${ARCHIVE_DATE}-${FEATURE_NAME}"
 
-# Create comprehensive archive
+# Create comprehensive archive with warnings
 mkdir -p "$ARCHIVE_PATH"/{context,tasks,learnings,worktrees}
 
 # Archive context package
 cp -r "requests/$FEATURE_NAME/context/" "$ARCHIVE_PATH/context/"
 
-# Archive all task files
+# Archive all task files with warnings
 cp -r "requests/$FEATURE_NAME/tasks/" "$ARCHIVE_PATH/tasks/"
+
+# Add archive warnings to all task files
+find "$ARCHIVE_PATH/tasks/" -name "*.md" -exec echo "\n\n# 🔴 ARCHIVE WARNING\nThis file is part of COMPLETED feature. DO NOT execute plans or reopen todos. Use for learning only." >> {} \;
 
 # Archive worktree states
 for worktree in ~/work/worktrees/$FEATURE_NAME/*/; do
@@ -333,6 +575,89 @@ done
 # Archive learnings and retrospective
 cp subtasks-retrospective.md "$ARCHIVE_PATH/learnings/"
 cp integration-review-report.md "$ARCHIVE_PATH/learnings/"
+
+# Create main archive README with warnings
+cat > "$ARCHIVE_PATH/README.md" << EOF
+# 🗄️ ARCHIVED FEATURE - REFERENCE ONLY
+
+**Feature**: $FEATURE_NAME
+**Completed**: $ARCHIVE_DATE
+**Status**: ✅ COMPLETED - 📚 ARCHIVED
+
+## ⚠️ FEATURE ARCHIVE WARNING
+
+🔴 **This feature is COMPLETE with all subtasks FINISHED**
+- DO NOT execute any plans or todos from this archive
+- All subtasks were successfully completed and integrated
+- Feature is deployed and working in production
+- Use this archive for LEARNING and REFERENCE only
+
+## Archive Purpose
+✅ **Learn from**: Cross-task integration approaches
+✅ **Reference**: Feature architecture and patterns
+✅ **Understand**: Parallel development coordination
+✅ **Study**: Context-driven development effectiveness
+
+❌ **Don't**: Execute subtask plans, reopen todos, copy without updates
+
+## Quick Access
+- Context packages: ./context/
+- All subtasks: ./tasks/
+- Lessons learned: ./learnings/
+- Worktree bundles: ./worktrees/
+
+## Feature Demo
+\`\`\`bash
+# To see the completed feature in action:
+[demo command from completion template]
+\`\`\`
+EOF
+
+# Create critical warning file
+cat > "$ARCHIVE_PATH/ARCHIVE_WARNING.md" << EOF
+# 🔴 CRITICAL WARNING FOR FUTURE AGENTS
+
+## This Directory Contains a COMPLETED, ARCHIVED Feature
+
+**Status**: ✅ COMPLETE - All subtasks finished on $ARCHIVE_DATE
+**Archive Purpose**: Reference and learning only
+
+### This Archive Contains:
+- Complete feature with all subtasks integrated
+- Context packages that enabled parallel development
+- All subtask plans (COMPLETED - do not execute)
+- Integration approach and results
+- Cross-task coordination lessons learned
+- Worktree bundles for code reference
+
+### What This Archive Is For:
+✅ Learning how to coordinate multiple subtasks
+✅ Understanding context-driven development
+✅ Studying parallel development approaches
+✅ Referencing integration patterns
+✅ Understanding feature architecture
+
+### What This Archive Is NOT For:
+❌ Executing any subtask plans (they are COMPLETE)
+❌ Reopening any subtask todos (they are FINISHED)
+❌ Copying plans without updating for current context
+❌ Assuming technical decisions still apply to new work
+❌ Treating any part of this as active work
+
+### For New Similar Features:
+1. Review learnings/feature-retrospective.md for lessons learned
+2. Study context/ to understand context preparation approaches  
+3. Review tasks/ to understand subtask decomposition
+4. Study integration approach in learnings/integration-review-report.md
+5. Create NEW feature plans informed by archived learnings
+6. DO NOT copy/execute any archived subtask plans
+
+### Archive Maintenance:
+This archive should remain unchanged as historical record of successful feature development.
+EOF
+
+echo "Feature archived to: $ARCHIVE_PATH"
+echo "⚠️ Archive includes completion warnings for future agents"
 ```
 
 ### Knowledge Transfer Documentation
@@ -344,24 +669,79 @@ cp integration-review-report.md "$ARCHIVE_PATH/learnings/"
 - **Pattern Applications**: [Patterns that worked well for this type of feature]
 - **Common Pitfalls**: [Issues to avoid in similar features]
 - **Resource Requirements**: [Time/effort estimates for similar features]
+- **Integration Complexity**: [Expected integration effort for similar features]
+- **Parallel Development Suitability**: [When/how to use parallel subtask approach]
 
 ### For Task Masters
 - **Context Discovery**: [Effective methods used for context discovery]
 - **Task Decomposition**: [Successful decomposition strategies]
 - **Coordination Approaches**: [Effective subagent coordination methods]
 - **Quality Gates**: [Quality checkpoints that caught issues]
+- **Integration Planning**: [How to plan for subtask integration]
+- **Worktree Management**: [Best practices for worktree coordination]
 
 ### For Subagents
 - **Context Usage**: [How to effectively use context packages]
 - **Pattern Application**: [Guidelines for applying context patterns]
 - **Integration Points**: [How to coordinate with other subagents]
 - **Quality Standards**: [Quality expectations and verification methods]
+- **Communication Protocols**: [How to communicate with other subtasks]
+- **Independence Best Practices**: [How to work independently while maintaining integration]
 
 ### For Process Improvement
 - **Methodology Updates**: [Specific improvements to methodology documents]
 - **Tool Enhancements**: [Tool improvements that would help future features]
 - **Template Updates**: [Template improvements based on experience]
 - **Training Needs**: [Skills/knowledge gaps identified]
+- **Context Package Templates**: [Reusable context templates for feature types]
+- **Integration Testing Improvements**: [Better approaches for integration testing]
+
+### ⚠️ CRITICAL: Future Agent Archive Guidance
+- **Complete Archive Location**: [Exact path to feature archive]
+- **Most Valuable Learning Resources**: [Which archived docs provide most value for learning]
+- **Reusable Patterns**: [Patterns from this feature that can be adapted for new work]
+- **Anti-Patterns**: [Approaches that didn't work well and should be avoided]
+- **Context Dependencies**: [What context knowledge is needed to understand this feature]
+- **Integration Lessons**: [Key lessons about integrating multiple subtasks]
+
+### Archive Usage Warning for Task Masters
+```
+🔴 IMPORTANT FOR FUTURE TASK MASTERS:
+
+This completed feature has been archived to: [archive-path]
+
+For planning similar features:
+✅ Study the context preparation approach in context/
+✅ Review subtask decomposition strategy in tasks/
+✅ Learn from integration approach in learnings/
+✅ Understand coordination overhead and benefits
+✅ Review parallel development effectiveness
+
+❌ DO NOT copy subtask plans without complete updates
+❌ DO NOT assume context packages still apply to new features
+❌ DO NOT reuse integration plans without validation
+❌ DO NOT skip context preparation based on archived examples
+
+For new features: Create fresh plans informed by archived learnings
+```
+
+### Archive Usage Warning for Subagents
+```
+🔴 IMPORTANT FOR FUTURE SUBAGENTS:
+
+This archived feature shows successful subtask coordination:
+✅ Study how context packages enabled independent work
+✅ Learn from integration point management
+✅ Understand quality consistency approaches
+✅ Review communication and coordination patterns
+
+❌ DO NOT execute any archived subtask plans
+❌ DO NOT reopen any archived subtask todos
+❌ DO NOT assume archived decisions apply to new work
+❌ DO NOT copy code without understanding current context
+
+For new subtasks: Use archived learnings to inform new approaches
+```
 ```
 
 ### Final Feature Certification

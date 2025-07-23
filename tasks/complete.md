@@ -347,28 +347,165 @@
 - **Tools**: [Better knowledge management tools]
 ```
 
-## Archive and Handoff
+## MANDATORY Completion Requirements
 
-### Documentation Archive
+### ⚠️ CRITICAL: Completion Phase Deliverables
 ```markdown
-## Archive Checklist
-- [ ] Final todo.md updated with completion status
-- [ ] Code changes documented in commit history
-- [ ] Architecture decisions documented
-- [ ] Performance benchmarks recorded
-- [ ] Security review findings documented
-- [ ] User documentation updated
-- [ ] Technical documentation updated
+## 1. Updated User Documentation ✅
+- [ ] **User Documentation Updated**: All user-facing documentation reflects completed work
+- [ ] **Documentation Verification**: Verify documentation is accurate and complete
+- [ ] **User Guide Updates**: Installation, configuration, usage guides updated
+- [ ] **API Documentation**: API changes documented with examples
+- [ ] **Changelog Updated**: Changes documented in user-visible changelog
+- [ ] **Breaking Changes Noted**: Any breaking changes clearly documented
 
-## Archive Location
-**Path**: `/archive/YYYY-MM-DD-task-name/`
-**Contents**:
+## 2. Simple Review Command/Link ✅
+- [ ] **Review Command Provided**: Simple command or link to review the whole completed feature
+- [ ] **Demo Script Available**: Clear instructions to see the feature in action
+- [ ] **Test Commands**: Commands to verify the feature works as expected
+- [ ] **Feature Location**: Clear path to main feature files and entry points
+
+## 3. Archive Location Documentation ✅
+- [ ] **Archive Path Documented**: Exact location of archived process documentation
+- [ ] **Archive Contents Listed**: Clear inventory of what's archived where
+- [ ] **Access Instructions**: How future agents can access archived materials
+- [ ] **Archive Date Recorded**: When the archive was created
+
+## 4. Lessons Learned Extraction ✅
+- [ ] **Key Learnings Documented**: What worked well and what didn't
+- [ ] **Process Improvements**: Specific improvements for future similar work
+- [ ] **Technical Insights**: Technical discoveries and gotchas
+- [ ] **Time/Effort Analysis**: Actual vs estimated effort with variance analysis
+- [ ] **Risk Assessment**: What risks materialized and which were missed
+
+## 5. Archive vs Active Work Warnings ✅
+- [ ] **Clear Archive Status**: Archived plans marked as HISTORICAL/REFERENCE ONLY
+- [ ] **Execution Warnings**: Clear warnings that archived plans should NOT be executed
+- [ ] **Learning vs Execution**: Distinction between learning from archives vs executing them
+- [ ] **Current vs Historical**: Clear separation of active work from archived work
+```
+
+### Critical Completion Template
+```markdown
+# COMPLETION DELIVERABLES TEMPLATE
+
+## 1. User Documentation Updates
+
+### Documentation Changes Made:
+- **File**: [path/to/user-docs] - **Change**: [description]
+- **File**: [path/to/api-docs] - **Change**: [description]
+- **File**: [changelog.md] - **Change**: [new version entry]
+
+### Documentation Verification:
+- [ ] All documentation tested and accurate
+- [ ] No broken links or references
+- [ ] Examples work as documented
+- [ ] Installation/setup instructions verified
+
+## 2. Feature Review Information
+
+### Simple Review Command:
+```bash
+# Command to review/demo the completed work:
+[exact command or URL]
+```
+
+### Feature Location:
+- **Main Files**: `/path/to/main/feature/files`
+- **Entry Points**: `/path/to/entry/points`
+- **Configuration**: `/path/to/config/files`
+- **Tests**: `/path/to/test/files`
+
+### Quick Demo Steps:
+1. [Step 1 to see feature in action]
+2. [Step 2 to verify it works]
+3. [Step 3 to test main functionality]
+
+## 3. Archive Documentation
+
+### Archive Location:
+- **Path**: `/archive/YYYY-MM-DD-task-name/`
+- **Created**: [date]
+- **Archived By**: [name/role]
+
+### Archive Contents:
 - `todo.md` - Final task list with completion status
-- `review-report.md` - Final review report
+- `review-report.md` - Final review report  
 - `retrospective.md` - This retrospective document
 - `technical-notes.md` - Technical implementation notes
 - `decisions.md` - Architecture and design decisions
+- `process-documentation/` - All process docs used during development
+
+### Archive Access:
+```bash
+# To access archived materials:
+ls /archive/YYYY-MM-DD-task-name/
+cat /archive/YYYY-MM-DD-task-name/README.md
 ```
+
+## 4. Lessons Learned for Future Work
+
+### What Worked Well:
+- [Specific practice that was effective]
+- [Tool/approach that saved time]
+- [Process that prevented problems]
+
+### What Could Improve:
+- [Specific difficulty encountered]
+- [Better approach for next time]
+- [Process gap that caused delays]
+
+### Key Technical Insights:
+- [Technical discovery important for similar work]
+- [Performance characteristic discovered]
+- [Integration pattern that works well]
+
+### Time/Effort Analysis:
+- **Estimated**: [X hours/days]
+- **Actual**: [Y hours/days]
+- **Variance**: [percentage and main causes]
+
+## 5. ⚠️ CRITICAL: Archive Status Warnings
+
+### For Future Agents:
+```
+🔴 WARNING: ARCHIVED MATERIALS ARE HISTORICAL REFERENCE ONLY
+
+- Archived plans should NOT be executed
+- Archived todos are COMPLETED and should not be reopened
+- Use archives for LEARNING and INSPIRATION only
+- Always create NEW plans for NEW work
+- Archived decisions may be outdated
+```
+
+### Archive Usage Guidelines:
+✅ **DO**: Review archives to understand what was done and why
+✅ **DO**: Learn from archived approaches and patterns
+✅ **DO**: Reference archived technical insights
+✅ **DO**: Use archived retrospectives to avoid similar problems
+
+❌ **DON'T**: Execute archived plans or todos
+❌ **DON'T**: Copy archived plans without updating for current context
+❌ **DON'T**: Assume archived decisions still apply
+❌ **DON'T**: Treat archives as active work
+
+### Archive Header Template:
+```markdown
+# 🗄️ ARCHIVED WORK - REFERENCE ONLY
+
+**Status**: ✅ COMPLETED on [date]
+**Current Status**: 📚 ARCHIVED - REFERENCE ONLY
+**Warning**: DO NOT EXECUTE - This work is complete
+
+**For Learning**: Review retrospective.md for lessons learned
+**For Context**: See technical-notes.md for implementation details
+**For Current Work**: Create new plans - do not reuse these
+```
+```
+
+## Archive and Handoff
+
+### Documentation Archive
 
 ### Knowledge Handoff
 ```markdown
@@ -395,6 +532,33 @@
 - **Usage Analytics**: [How to measure feature usage]
 - **User Impact**: [How this affects users]
 - **Business Metrics**: [How to measure business impact]
+
+### ⚠️ CRITICAL: Future Agent Guidance
+- **Archive Location**: [Exact path to archived materials]
+- **Learning Resources**: [Which archived docs are most valuable for learning]
+- **Pattern Reuse**: [Patterns from this work that can be reused]
+- **Anti-Patterns**: [Approaches that didn't work well]
+- **Context Dependencies**: [What context knowledge is needed to understand this work]
+
+### Archive Usage Warning
+```
+🔴 IMPORTANT FOR FUTURE AGENTS:
+
+This completed work has been archived to: [archive-path]
+
+Archived materials are for LEARNING and REFERENCE only:
+✅ Review retrospectives for lessons learned
+✅ Study technical approaches and patterns
+✅ Understand what was tried and why
+✅ Learn from successes and failures
+
+❌ DO NOT execute archived plans
+❌ DO NOT reopen archived todos
+❌ DO NOT copy archived work without updating for current context
+❌ DO NOT assume archived decisions still apply
+
+For new similar work: Create fresh plans informed by archived learnings
+```
 ```
 
 ### Todo Archive Process
@@ -414,13 +578,20 @@ cp todo.md "$ARCHIVE_DIR/todo-final.md"
 cp review-report.md "$ARCHIVE_DIR/" 2>/dev/null
 cp retrospective.md "$ARCHIVE_DIR/"
 
-# Generate completion summary
-cat > "$ARCHIVE_DIR/summary.md" << EOF
-# Task Completion Summary
+# Generate completion summary with archive warnings
+cat > "$ARCHIVE_DIR/README.md" << EOF
+# 🗄️ ARCHIVED TASK - REFERENCE ONLY
 
 **Task**: $TASK_NAME
 **Completed**: $ARCHIVE_DATE
-**Status**: ✅ Complete
+**Status**: ✅ COMPLETED - 📚 ARCHIVED
+
+## ⚠️ ARCHIVE WARNING
+
+🔴 **This work is COMPLETE and ARCHIVED**
+- DO NOT execute plans or todos from this archive
+- Use for LEARNING and REFERENCE only
+- Create NEW plans for NEW work
 
 ## Quick Stats
 - Duration: [X days/hours]
@@ -433,10 +604,70 @@ cat > "$ARCHIVE_DIR/summary.md" << EOF
 - [Secondary outcomes]
 - [Value delivered]
 
-See full documentation in this archive directory.
+## Archive Contents
+- \`todo-final.md\` - Final task status (DO NOT REOPEN)
+- \`review-report.md\` - Final review findings
+- \`retrospective.md\` - Lessons learned (READ THIS)
+- \`technical-notes.md\` - Implementation details
+- \`decisions.md\` - Architecture decisions made
+
+## For Future Work
+✅ **Learn from**: retrospective.md, technical-notes.md
+✅ **Reference**: Architecture patterns and decisions
+✅ **Understand**: What was tried and why
+
+❌ **Don't**: Execute todos, copy plans without updates
+
+## User Documentation Updates
+[List of user documentation that was updated]
+
+## Feature Review
+\`\`\`bash
+# To review the completed work:
+[command or URL to see the feature]
+\`\`\`
+
+## Completed Feature Location
+- **Main files**: [paths]
+- **Entry points**: [paths] 
+- **Tests**: [paths]
+EOF
+
+# Create archive warning file
+cat > "$ARCHIVE_DIR/ARCHIVE_WARNING.md" << EOF
+# 🔴 CRITICAL WARNING FOR FUTURE AGENTS
+
+## This Directory Contains COMPLETED, ARCHIVED Work
+
+**Status**: ✅ COMPLETE - Work finished on $ARCHIVE_DATE
+**Archive Purpose**: Reference and learning only
+
+### What This Archive Is For:
+✅ Learning from completed work
+✅ Understanding technical approaches used
+✅ Reviewing lessons learned and retrospectives
+✅ Referencing architecture decisions
+✅ Understanding what was tried and why
+
+### What This Archive Is NOT For:
+❌ Executing plans or todos (they are COMPLETE)
+❌ Reopening tasks (they are FINISHED)
+❌ Copying plans without updating for current context
+❌ Assuming decisions still apply to new work
+
+### For New Similar Work:
+1. Review retrospective.md for lessons learned
+2. Study technical approaches in technical-notes.md
+3. Understand decisions made in decisions.md
+4. Create NEW plans informed by archived learnings
+5. DO NOT copy/execute archived plans
+
+### Archive Maintenance:
+This archive should remain unchanged as historical record.
 EOF
 
 echo "Task archived to: $ARCHIVE_DIR"
+echo "⚠️ Archive includes completion warnings for future agents"
 ```
 
 ## Final Sign-off
@@ -498,9 +729,16 @@ echo "Task archived to: $ARCHIVE_DIR"
 
 ### Knowledge Archive:
 ```bash
-# Archive with learnings incorporated
-cp todo.md "/archive/$(date +%Y-%m-%d)-task-name/"
-echo "Learnings: [summary]" >> "/archive/$(date +%Y-%m-%d)-task-name/retrospective.md"
+# Archive with learnings incorporated and warnings
+ARCHIVE_PATH="/archive/$(date +%Y-%m-%d)-task-name/"
+cp todo.md "$ARCHIVE_PATH/todo-final.md"
+echo "Learnings: [summary]" >> "$ARCHIVE_PATH/retrospective.md"
+
+# Add archive warnings to all key files
+echo "\n\n# 🔴 ARCHIVE WARNING\nThis file is part of COMPLETED work. DO NOT execute plans or reopen todos. Use for learning only." >> "$ARCHIVE_PATH/todo-final.md"
+echo "\n\n# 🔴 ARCHIVE WARNING\nThis retrospective is from COMPLETED work. Use for learning, not execution." >> "$ARCHIVE_PATH/retrospective.md"
+
+echo "✅ Task archived with completion warnings at: $ARCHIVE_PATH"
 ```
 
 ## Task Lifecycle Complete

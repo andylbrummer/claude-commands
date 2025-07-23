@@ -274,6 +274,115 @@ curl -s https://api.github.com/repos/owner/repo/releases/latest  # Latest versio
 - Order tasks by dependency chain
 ```
 
+### Task Sizing Guidelines
+```markdown
+## Task Size Philosophy
+- **As small as practical**: Break down when it provides clear benefit
+- **No artificial limits**: Some tasks naturally require more time/tokens
+- **Atomic completion**: Each task should produce complete, testable functionality
+- **Boundary respect**: Tasks should respect natural code boundaries
+
+## Size Guidelines (Flexible)
+- **Target Time**: 15-30 minutes per task
+- **Acceptable Time**: Up to 60 minutes for complex, atomic units
+- **Token Target**: Under 150k tokens per task
+- **Token Acceptable**: Up to 300k tokens for unavoidable complexity
+- **File Target**: 3-7 files per task
+- **File Acceptable**: Up to 15 files if they form logical unit
+
+## Task Sizing Assessment
+```bash
+# Estimate tokens per task component
+estimate_task_tokens() {
+    local task_files="$1"
+    local context_size="$2"
+    local implementation_complexity="$3"
+    
+    # Base token costs
+    context_tokens=$((context_size * 1000))        # Context package size
+    file_reading_tokens=$((task_files * 2000))     # ~2k tokens per file read
+    implementation_tokens=$((implementation_complexity * 5000))  # 5k per complexity unit
+    validation_tokens=10000                        # Testing and validation
+    
+    total_tokens=$((context_tokens + file_reading_tokens + implementation_tokens + validation_tokens))
+    
+    echo "Task Token Estimate: $total_tokens"
+    
+    if [[ $total_tokens -gt 150000 ]]; then
+        echo "⚠️ LARGE TASK: $total_tokens tokens > 150k target"
+        if [[ $total_tokens -gt 300000 ]]; then
+            echo "❌ TASK TOO LARGE: $total_tokens tokens > 300k limit"
+            echo "MUST SPLIT: Reduce files or complexity"
+            return 1
+        fi
+    fi
+    
+    echo "✅ Task size acceptable: $total_tokens tokens"
+    return 0
+}
+```
+
+## Task Scope Boundaries & "Do Not Touch" Areas
+
+### Scope Boundary Analysis (MANDATORY)
+```markdown
+## Impact Boundary Mapping
+For each task, define clear boundaries to prevent unnecessary investigation:
+
+### Direct Impact Zone (MODIFY)
+- **Primary Files**: Files directly modified by this task
+- **Direct Dependencies**: Files that import/use the modified files
+- **Test Files**: Tests that directly test the modified functionality
+- **Type Definitions**: Types directly related to the changes
+
+### Secondary Impact Zone (REVIEW ONLY)
+- **Indirect Dependencies**: Files that use direct dependencies
+- **Integration Points**: Services that call modified APIs
+- **Related Features**: Features that might be affected by changes
+- **Documentation**: Docs that need updates
+
+### No-Touch Zone (IGNORE)
+- **Unrelated Services**: Services not using modified functionality
+- **Legacy Code**: Old code not connected to changes
+- **Future Features**: Planned but not implemented features
+- **External Dependencies**: Third-party libraries and services
+```
+
+### Usage Analysis Commands
+```bash
+# MANDATORY: Analyze actual usage boundaries before task execution
+analyze_component_usage() {
+    local component_file="$1"
+    local component_name=$(basename "$component_file" .tsx)
+    
+    echo "=== Usage Analysis for $component_name ==="
+    
+    # Find direct imports (MODIFY zone)
+    echo "DIRECT IMPORTS (MODIFY zone):"
+    grep -r "import.*$component_name" src/ --include="*.ts" --include="*.tsx" | head -10
+    
+    # Find type usage (REVIEW zone)
+    echo "TYPE USAGE (REVIEW zone):"
+    grep -r ": ${component_name}Props" src/ --include="*.ts" --include="*.tsx" | head -5
+    
+    # Find API calls (REVIEW zone)
+    echo "API CALLS (REVIEW zone):"
+    grep -r "api.*${component_name,,}" src/ --include="*.ts" --include="*.tsx" | head -5
+    
+    # Count total usage
+    local usage_count=$(grep -r "$component_name" src/ --include="*.ts" --include="*.tsx" | wc -l)
+    echo "TOTAL USAGE: $usage_count occurrences"
+    
+    if [[ $usage_count -lt 10 ]]; then
+        echo "✅ LIMITED SCOPE: Component has limited usage - safe for focused changes"
+    elif [[ $usage_count -lt 50 ]]; then
+        echo "⚠️ MODERATE SCOPE: Review listed files for impact"
+    else
+        echo "❌ BROAD SCOPE: Consider splitting task or extensive impact analysis"
+    fi
+}
+```
+
 ### Completion Criteria Template
 ```markdown
 ## Success Criteria for [Task Name]
@@ -345,6 +454,13 @@ curl -X POST /api/endpoint -d '{"test":"data"}'
 **Estimated Effort**: [Hours/Days]
 **Risk Level**: HIGH/MEDIUM/LOW
 
+## Task Sizing Assessment
+**File Count**: [X files] - [Within target/Justified by atomicity]
+**Estimated Time**: [X minutes] - [Target: 15-30min, Acceptable: up to 60min]
+**Token Estimate**: [X tokens] - [Target: <150k, Acceptable: <300k]
+**Complexity Level**: [1-3] - [Simple/Moderate/Complex]
+**Atomicity Assessment**: ✅ ATOMIC - Cannot be meaningfully split further
+
 ### Codebase Context
 **Existing Functionality**: 
 - ✅ [What already works] - Files: [specific paths]
@@ -363,6 +479,52 @@ curl -X POST /api/endpoint -d '{"test":"data"}'
 - [How this fits into existing system]
 - [Components it will interact with] - Files: [paths]
 - [Data flow/communication patterns]
+
+### Task Scope Boundaries
+**MODIFY Zone** (Direct Changes):
+```yaml
+primary_files:
+  - /src/components/TargetComponent.tsx    # Main file being modified
+  - /src/types/ComponentTypes.ts           # Related type definitions
+  - /tests/TargetComponent.test.tsx        # Direct tests
+
+direct_dependencies:
+  - /src/components/ParentComponent.tsx    # Imports TargetComponent
+  - /src/hooks/useTargetData.ts           # Hook used by component
+  - /src/services/TargetService.ts        # Service methods
+```
+
+**REVIEW Zone** (Check for Impact):
+```yaml
+check_integration:
+  - /src/components/RelatedComponent.tsx   # Might use same patterns
+  - /src/pages/ComponentPage.tsx          # Page that uses component
+  - /src/api/componentRoutes.ts           # API routes
+
+check_documentation:
+  - /docs/components/target-component.md   # Component documentation
+```
+
+**IGNORE Zone** (Do Not Touch):
+```yaml
+ignore_completely:
+  - /src/components/Payment/*             # Unrelated payment system
+  - /src/services/EmailService.ts        # Email service not used
+  - /legacy/old-components/*             # Legacy code
+  - /src/admin/billing/*                 # Billing system
+  - /external/third-party-libs/*        # External libraries
+
+ignore_search_patterns:
+  - "**/node_modules/**"                 # Dependencies
+  - "**/build/**"                        # Build artifacts
+  - "**/dist/**"                         # Distribution files
+  - "**/*.min.js"                        # Minified files
+```
+
+**Boundary Analysis Results**:
+- **Usage Count**: [X] occurrences found
+- **Scope Assessment**: [LIMITED/MODERATE/BROAD] scope
+- **Impact Radius**: [X] files in MODIFY zone, [Y] files in REVIEW zone
 
 ### External Context Sources
 **Primary Documentation**:
@@ -461,6 +623,19 @@ curl -X POST /api/endpoint -d '{"test":"data"}'
 - [ ] User has reviewed and approved the plan
 - [ ] todo.md created in execution-ready format
 
+## Task Sizing Assessment
+- [ ] **Time Assessment**: Tasks sized appropriately (target: 15-30min, max: 60min)
+- [ ] **Token Assessment**: Token usage estimated (target: <150k, max: <300k)
+- [ ] **Atomicity Verified**: Tasks cannot be meaningfully split further
+- [ ] **Complexity Assessed**: All tasks categorized by complexity level
+
+## Scope Boundary Validation
+- [ ] **Usage Analysis**: Component/service usage analyzed for impact
+- [ ] **Boundary Definition**: Clear MODIFY/REVIEW/IGNORE zones defined
+- [ ] **No-Touch Areas**: Explicit ignore patterns documented
+- [ ] **Impact Assessment**: Scope assessment completed (LIMITED/MODERATE/BROAD)
+- [ ] **Focused Implementation**: Clear boundaries prevent unnecessary investigation
+
 ## Risk Communication
 ⚠️ **HIGH RISK ITEMS REQUIRING APPROVAL**:
 [List any high-risk items with reasoning]
@@ -470,4 +645,31 @@ curl -X POST /api/endpoint -d '{"test":"data"}'
 
 ## Handoff Complete
 **Planning Phase Complete** → **Next: [tasks-execute.md](tasks-execute.md)**
+
+### FILES CREATED - VERIFICATION REQUIRED ✅
+**User must verify these files exist before proceeding:**
+
+1. **Planning Output File**: `todo.md`
+   - **Location**: Current working directory
+   - **Contains**: Complete task breakdown with context
+   - **Verify with**: `ls -la todo.md && head -20 todo.md`
+
+2. **Context Package** (if full methodology used):
+   - **Location**: `requests/<feature-name>/context/`
+   - **Files**: `codebase-analysis.md`, `external-sources.md`, `architecture-decisions.md`
+   - **Verify with**: `ls -la requests/*/context/ && find requests/ -name "*.md" -type f`
+
+3. **Ready-to-Execute Tasks File**:
+   - **Location**: Same directory as planning file
+   - **Contains**: Tasks formatted for execution phase
+   - **Verify with**: `grep -c "Task:" todo.md` (should show number of tasks)
+
+**⚠️ CRITICAL**: The next agent (execution phase) will start with ZERO CONTEXT from this conversation. It will ONLY have access to:
+- The files created above
+- The current codebase state
+- No memory of this planning discussion
+
+**⚠️ STOP AND VERIFY**: User must confirm all files exist at specified locations before proceeding to execution phase.
+
+**Next Step**: Only proceed to [tasks-execute.md](tasks-execute.md) after user confirms file creation.
 ```
