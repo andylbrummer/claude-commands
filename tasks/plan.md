@@ -1,5 +1,24 @@
 # Task Planning Methodology
 
+## EXECUTION INSTRUCTIONS FOR CLAUDE CODE
+
+**When this command is invoked, Claude Code must:**
+
+1. **ANALYZE USER REQUEST**: Break down the feature request using the analysis templates provided
+2. **EXECUTE DISCOVERY COMMANDS**: Run the codebase investigation commands to gather actual context
+3. **GENERATE CONTEXT FILES**: Create context documentation with real findings, not templates
+4. **CREATE TASK BREAKDOWN**: Generate actual task definitions with complete specifications
+5. **WRITE TODO FILE**: Create executable todo.md file with ready-to-execute tasks
+6. **VALIDATE COMPLETENESS**: Ensure all required files exist with actual content
+
+**File Generation Requirements:**
+- Create `todo.md` with complete task breakdown and context
+- Create context files (if full methodology used) with actual codebase analysis
+- Fill all templates with real data from codebase investigation
+- Generate specific, actionable tasks with clear success criteria
+
+**CRITICAL**: This is not just a methodology document - it's an execution command that must produce actual files.
+
 ## Prerequisites Check
 
 ### MANDATORY: Before Planning Tasks
@@ -61,13 +80,16 @@
 ## Pre-Planning Analysis Phase (Full Methodology)
 
 ### 1. Comprehensive Request Analysis
+
+**CLAUDE CODE ACTION**: Analyze the user's request and create the request breakdown with actual content:
+
 ```markdown
 ## Request Breakdown
-- **Primary Objective**: [What is the main goal?]
-- **Secondary Objectives**: [Supporting goals or side effects]
-- **User Intent**: [Why does the user want this?]
-- **Success Definition**: [How will we know it's complete?]
-- **Scope Boundaries**: [What's explicitly in/out of scope?]
+- **Primary Objective**: [Extract the main goal from user request]
+- **Secondary Objectives**: [Identify supporting goals from context]
+- **User Intent**: [Analyze why the user wants this based on their request]
+- **Success Definition**: [Define specific completion criteria from user context]
+- **Scope Boundaries**: [Determine what's in/out of scope from request details]
 
 ## Project Phase Assessment
 - **Current Phase**: [Prototype/MVP/Beta/Production]
@@ -104,16 +126,18 @@ npm info package-name  # For each major dependency
 curl -s https://api.github.com/repos/owner/repo/releases/latest  # Latest versions
 ```
 
+**CLAUDE CODE ACTION**: Execute the discovery commands above, then document the actual findings:
+
 **Context Capture Requirements (Mandatory):**
-- [ ] **Existing Functionality**: Document what already exists, with file paths
-- [ ] **Similar Implementations**: Find and reference existing patterns in codebase
-- [ ] **Dependencies**: Version constraints, known issues, migration paths
-- [ ] **Architecture Context**: How this fits into existing system design  
-- [ ] **Recent Changes**: What has changed recently in related areas
-- [ ] **Documentation Context**: Existing docs that relate to this change
-- [ ] **External Standards**: Industry patterns, framework conventions
-- [ ] **Performance Context**: Current performance characteristics and constraints
-- [ ] **Security Context**: Existing security patterns and requirements
+- [ ] **Existing Functionality**: Document what already exists, with actual file paths found
+- [ ] **Similar Implementations**: Find and reference actual existing patterns in codebase
+- [ ] **Dependencies**: Document actual version constraints from package.json/requirements.txt
+- [ ] **Architecture Context**: Analyze how this fits into actual system design found
+- [ ] **Recent Changes**: Review actual recent changes from git log
+- [ ] **Documentation Context**: Document actual existing docs that relate to this change
+- [ ] **External Standards**: Research actual industry patterns, framework conventions
+- [ ] **Performance Context**: Analyze actual current performance characteristics
+- [ ] **Security Context**: Document actual existing security patterns and requirements
 
 ### 3. Web Research & Documentation Review
 
@@ -590,9 +614,12 @@ ignore_search_patterns:
 ## Planning Output → Execution Handoff
 
 ### Create todo.md with this format:
+
+**CLAUDE CODE ACTION**: Generate the actual todo.md file with complete task breakdown:
+
 ```markdown
-# Todo: [Feature/Fix Name]
-**Generated from**: [Light/Full] Planning on [Date]
+# Todo: [Actual Feature/Fix Name from user request]
+**Generated from**: [Light/Full] Planning on [Current Date]
 **Next Phase**: [tasks-execute.md](tasks-execute.md)
 
 ## Context Summary
@@ -672,4 +699,28 @@ ignore_search_patterns:
 **⚠️ STOP AND VERIFY**: User must confirm all files exist at specified locations before proceeding to execution phase.
 
 **Next Step**: Only proceed to [tasks-execute.md](tasks-execute.md) after user confirms file creation.
+
+## CLAUDE CODE EXECUTION SUMMARY
+
+**When `/tasks-plan` command is invoked, Claude Code must execute these steps:**
+
+1. **Determine approach**: Light planning vs Full methodology based on complexity
+2. **Execute discovery commands**: Run actual codebase investigation commands
+3. **Analyze user request**: Extract real objectives, scope, and success criteria
+4. **Research external context**: Find relevant documentation and standards
+5. **Create task breakdown**: Generate specific, actionable tasks
+6. **Generate todo.md**: Create complete, executable todo.md file with all context
+7. **Validate completion**: Ensure todo.md contains ready-to-execute tasks
+
+**CRITICAL REQUIREMENTS**:
+- All templates must be filled with actual data from investigation
+- Discovery commands must be executed and results documented
+- Tasks must be specific, actionable, and include validation commands
+- todo.md must be complete and ready for execution phase
+
+**OUTPUT VERIFICATION**:
+- `todo.md` exists in working directory
+- Contains actual task breakdown (not templates)
+- Includes specific file paths, commands, and success criteria
+- Ready for immediate handoff to execution phase
 ```

@@ -141,8 +141,59 @@ EOF
 }
 ```
 
-#### 2. Context Package Distribution
+#### 2. Context Package Distribution & Tracking Setup
 ```bash
+# MANDATORY: Update CLAUDE.md with subtasks execution start
+update_claude_md_subtasks() {
+    local feature_name="$1"
+    local stage="$2"
+    local details="$3"
+    
+    # Update CLAUDE.md with current subtasks execution status
+    if [[ -f "CLAUDE.md" ]]; then
+        # Add execution status section if it doesn't exist
+        if ! grep -q "## Current Execution Status" CLAUDE.md; then
+            echo "" >> CLAUDE.md
+            echo "## Current Execution Status" >> CLAUDE.md
+            echo "" >> CLAUDE.md
+        fi
+        
+        # Update or add current status
+        sed -i '/## Current Execution Status/,/^##/{ /^##/!{ /Current Execution Status/!d } }' CLAUDE.md
+        
+        cat >> CLAUDE.md << EOF
+
+## Current Execution Status
+- **Phase**: Subtasks Execution
+- **Feature**: $feature_name
+- **Stage**: $stage
+- **Started**: $(date)
+- **Worktrees**: ~/work/worktrees/$feature_name/
+- **Details**: $details
+
+EOF
+    else
+        # Create CLAUDE.md if it doesn't exist
+        cat > CLAUDE.md << EOF
+# Development Context
+
+## Current Execution Status
+- **Phase**: Subtasks Execution
+- **Feature**: $feature_name
+- **Stage**: $stage
+- **Started**: $(date)
+- **Worktrees**: ~/work/worktrees/$feature_name/
+- **Details**: $details
+
+EOF
+    fi
+    
+    echo "✅ CLAUDE.md updated with subtasks execution status"
+}
+
+# Update CLAUDE.md with subtasks start
+update_claude_md_subtasks "<feature-name>" "STARTED" "Context distribution and worktree setup"
+
 # Ensure all worktrees have context access
 for task_dir in ~/work/worktrees/<feature>/*/; do
     ln -sf $(pwd)/requests/<feature>/context $task_dir/context
@@ -743,6 +794,44 @@ EOF
 complete_execution_log
 ```
 
+## MANDATORY: Update Subtask Tracking Before Completion
+```bash
+# Update subtasks tracking before creating completion report
+update_subtask_completion_status() {
+    local task_name="$1"
+    local feature_name="$2"
+    
+    # Update main CLAUDE.md with subtask completion
+    cd ../../../
+    update_claude_md_subtasks "$feature_name" "IN_PROGRESS" "Subtask $task_name completed"
+    
+    # Create or update task status tracking
+    if [[ ! -f "requests/${feature_name}/task-status.md" ]]; then
+        cat > "requests/${feature_name}/task-status.md" << EOF
+# Subtask Status Tracking: $feature_name
+
+| Task | Status | Completed | Worktree |
+|------|--------|-----------|----------|
+EOF
+    fi
+    
+    # Add or update this task status
+    if grep -q "| ${task_name} |" "requests/${feature_name}/task-status.md"; then
+        sed -i "s/| ${task_name} | .* | .* | .* |/| ${task_name} | ✅ COMPLETE | $(date '+%Y-%m-%d %H:%M') | $(pwd) |/" "requests/${feature_name}/task-status.md"
+    else
+        echo "| ${task_name} | ✅ COMPLETE | $(date '+%Y-%m-%d %H:%M') | $(pwd) |" >> "requests/${feature_name}/task-status.md"
+    fi
+    
+    # Commit tracking updates
+    git add "requests/${feature_name}/task-status.md" CLAUDE.md
+    git commit -m "docs: update subtask completion tracking for ${task_name}"
+    
+    echo "✅ Subtask completion status updated in tracking documents"
+}
+
+# Execute subtask completion tracking
+update_subtask_completion_status "$(basename $(pwd))" "${feature_name}"
+
 ## Completion Status Report:
 ```bash
 # Create completion report
@@ -1143,9 +1232,22 @@ EOF
 # Execute final validation before handoff
 validate_task_completion "<feature_name>"
 
-# If validation passes, proceed to review
-echo "✅ All tasks properly completed and merged"
-echo "Proceeding to subtasks-review.md"
+# If validation passes, update final tracking
+if [[ $? -eq 0 ]]; then
+    # Update CLAUDE.md with final completion
+    update_claude_md_subtasks "<feature_name>" "COMPLETE" "All subtasks completed, ready for review"
+    
+    # Commit final CLAUDE.md update
+    git add CLAUDE.md
+    git commit -m "docs: mark subtasks execution complete - ready for review"
+    
+    echo "✅ All tracking documents updated for subtasks completion"
+    echo "✅ All tasks properly completed and merged"
+    echo "Proceeding to subtasks-review.md"
+else
+    echo "❌ Validation failed - cannot proceed to review"
+    exit 1
+fi
 ```
 
 **⚠️ CRITICAL**: Do NOT proceed to review phase until:

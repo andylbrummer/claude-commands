@@ -79,6 +79,9 @@ setup_assumption_testing() {
     
     echo "=== Setting up assumption testing framework ==="
     
+    # Update CLAUDE.md with assumption testing setup
+    update_claude_md_prototype "$feature_name" "Assumption Testing" "SETUP" "Creating assumption testing framework and prototypes"
+    
     # Create assumption registry
     mkdir -p "requests/${feature_name}/assumptions"
     
@@ -200,6 +203,55 @@ create_assumption_prototypes() {
 "
 
     echo "✅ Assumption testing prototypes created"
+}
+
+# MANDATORY: Update CLAUDE.md with prototype-first execution start
+update_claude_md_prototype() {
+    local feature_name="$1"
+    local phase="$2" 
+    local stage="$3"
+    local details="$4"
+    
+    # Update CLAUDE.md with current prototype execution status
+    if [[ -f "CLAUDE.md" ]]; then
+        # Add execution status section if it doesn't exist
+        if ! grep -q "## Current Execution Status" CLAUDE.md; then
+            echo "" >> CLAUDE.md
+            echo "## Current Execution Status" >> CLAUDE.md
+            echo "" >> CLAUDE.md
+        fi
+        
+        # Update or add current status
+        sed -i '/## Current Execution Status/,/^##/{ /^##/!{ /Current Execution Status/!d } }' CLAUDE.md
+        
+        cat >> CLAUDE.md << EOF
+
+## Current Execution Status
+- **Phase**: Prototype-First Execution
+- **Feature**: $feature_name
+- **Current Phase**: $phase
+- **Stage**: $stage
+- **Started**: $(date)
+- **Details**: $details
+
+EOF
+    else
+        # Create CLAUDE.md if it doesn't exist
+        cat > CLAUDE.md << EOF
+# Development Context
+
+## Current Execution Status
+- **Phase**: Prototype-First Execution
+- **Feature**: $feature_name
+- **Current Phase**: $phase
+- **Stage**: $stage
+- **Started**: $(date)
+- **Details**: $details
+
+EOF
+    fi
+    
+    echo "✅ CLAUDE.md updated with prototype execution status"
 }
 
 # Helper function to create assumption prototype environment
@@ -732,6 +784,9 @@ Use this validated approach when re-running subtasks-plan.md:
 EOF
 
     echo "✅ Streamlined plan changes documented"
+    
+    # Update CLAUDE.md with plan adjustment completion
+    update_claude_md_prototype "$feature_name" "Plan Adjustment" "COMPLETE" "Plan updated based on assumption testing results"
 }
 
 # Quick validation that critical assumptions are resolved
@@ -1262,6 +1317,9 @@ EOF
     done
     
     echo "✅ All production worktrees ready"
+    
+    # Update CLAUDE.md with production phase start
+    update_claude_md_prototype "$feature_name" "Production Implementation" "STARTED" "Production worktrees created, implementing validated approach"
 }
 ```
 
@@ -1599,6 +1657,9 @@ validate_assumption_testing_production_complete() {
     
     echo "=== Assumption-Testing-First Completion Validation ==="
     
+    # Update CLAUDE.md with final validation
+    update_claude_md_prototype "$feature_name" "Final Validation" "IN_PROGRESS" "Validating all phases complete before handoff"
+    
     # Check assumption testing phase complete
     if [[ ! -f "requests/${feature_name}/ASSUMPTION_TESTING_COMPLETE" ]]; then
         echo "❌ Assumption testing phase not complete"
@@ -1639,8 +1700,18 @@ validate_assumption_testing_production_complete() {
         echo "✅ ASSUMPTION-TESTING-FIRST WORKFLOW COMPLETE"
         echo "All production tasks ready for integration review"
         echo "Plan successfully adjusted based on validated assumptions"
+        
+        # Update CLAUDE.md with final completion
+        update_claude_md_prototype "$feature_name" "COMPLETE" "COMPLETE" "All phases complete - assumption testing validated approach implemented successfully"
+        
+        # Commit final tracking update
+        git add CLAUDE.md
+        git commit -m "docs: mark prototype-first execution complete - ready for review"
+        
+        echo "✅ All tracking documents updated for prototype-first completion"
     else
         echo "❌ $incomplete_count issues found"
+        update_claude_md_prototype "$feature_name" "Final Validation" "FAILED" "$incomplete_count validation issues found"
         exit 1
     fi
 }

@@ -44,9 +44,61 @@
 ---
 
 ## Setup Git Branch & Execution Log
+
+### MANDATORY: Update CLAUDE.md Status and Initialize Tracking
 ```bash
+# MANDATORY: Update CLAUDE.md with current execution stage
+update_claude_md_status() {
+    local task_name="$1"
+    local stage="$2"
+    
+    # Update CLAUDE.md with current execution status
+    if [[ -f "CLAUDE.md" ]]; then
+        # Add execution status section if it doesn't exist
+        if ! grep -q "## Current Execution Status" CLAUDE.md; then
+            echo "" >> CLAUDE.md
+            echo "## Current Execution Status" >> CLAUDE.md
+            echo "" >> CLAUDE.md
+        fi
+        
+        # Update or add current status
+        sed -i '/## Current Execution Status/,/^##/{ /^##/!{ /Current Execution Status/!d } }' CLAUDE.md
+        
+        cat >> CLAUDE.md << EOF
+
+## Current Execution Status
+- **Phase**: Task Execution
+- **Current Task**: $task_name
+- **Stage**: $stage
+- **Started**: $(date)
+- **Branch**: feature/$task_name
+- **Log File**: execution-log.md
+
+EOF
+    else
+        # Create CLAUDE.md if it doesn't exist
+        cat > CLAUDE.md << EOF
+# Development Context
+
+## Current Execution Status
+- **Phase**: Task Execution
+- **Current Task**: $task_name
+- **Stage**: $stage
+- **Started**: $(date)
+- **Branch**: feature/$task_name
+- **Log File**: execution-log.md
+
+EOF
+    fi
+    
+    echo "✅ CLAUDE.md updated with execution status"
+}
+
 # Create feature branch after approval
 git checkout -b feature/<task-name>
+
+# Update CLAUDE.md with execution start
+update_claude_md_status "<task-name>" "STARTED"
 
 # Initialize execution log
 cat > execution-log.md << 'EOF'
@@ -101,7 +153,59 @@ EOF
 - **High-risk tasks**: Extra care, comprehensive error handling, extensive tests, minimal PoC
 - Work through todo items systematically, one at a time
 - Mark items as `[x]` when completed
-- **MANDATORY**: Update execution-log.md throughout implementation
+- **MANDATORY**: Update execution-log.md AND todo.md throughout implementation
+- **MANDATORY**: Update CLAUDE.md with progress at key milestones
+
+### Todo.md Update Functions
+```bash
+# Update todo.md task status
+update_todo_status() {
+    local task_description="$1"
+    local status="$2"  # "x" for complete, " " for incomplete
+    
+    if [[ -f "todo.md" ]]; then
+        # Update task status in todo.md
+        sed -i "s/- \[ \] ${task_description}/- [${status}] ${task_description}/" todo.md
+        echo "✅ Updated todo.md: ${task_description} -> ${status}"
+        
+        # Commit todo.md updates
+        git add todo.md
+        git commit -m "docs: update todo status for ${task_description}"
+    else
+        echo "⚠️ No todo.md file found"
+    fi
+}
+
+# Add new task to todo.md (discovered during execution)
+add_todo_task() {
+    local task_description="$1"
+    local priority="$2"  # HIGH/MEDIUM/LOW
+    
+    if [[ -f "todo.md" ]]; then
+        # Add new task under appropriate section
+        echo "- [ ] **NEW (${priority})**: ${task_description}" >> todo.md
+        echo "✅ Added new task to todo.md: ${task_description}"
+        
+        # Commit new task
+        git add todo.md
+        git commit -m "docs: add discovered task - ${task_description}"
+    fi
+}
+
+# Mark task as in progress
+mark_task_in_progress() {
+    local task_description="$1"
+    
+    if [[ -f "todo.md" ]]; then
+        # Add in-progress marker
+        sed -i "s/- \[ \] ${task_description}/- [⏳] ${task_description}/" todo.md
+        echo "✅ Marked task in progress: ${task_description}"
+        
+        git add todo.md
+        git commit -m "docs: mark task in progress - ${task_description}"
+    fi
+}
+```
 
 ### Execution Logging Requirements
 
@@ -200,6 +304,9 @@ git commit -m "<task description>: <what was changed>"
 
 # Update execution log with commit
 echo "- **$(date)**: Committed [description]" >> execution-log.md
+
+# Update CLAUDE.md with progress
+update_claude_md_status "<task-name>" "IN_PROGRESS - Task completed: [description]"
 ```
 
 ### Core Development Principles
@@ -300,6 +407,9 @@ EOF
 # Commit execution log
 git add execution-log.md
 git commit -m "docs: complete execution log for task"
+
+# Update CLAUDE.md with completion
+update_claude_md_status "<task-name>" "COMPLETE"
 ```
 
 ## MANDATORY: Task Completion Results and Handoff
@@ -408,6 +518,49 @@ echo "git diff origin/$(git branch --show-current)"
 - [ ] **Outstanding Work Defined**: What still needs to be done
 - [ ] **Integration Points Noted**: How this connects to other components
 - [ ] **Testing Strategy Documented**: How to verify functionality
+```
+
+### MANDATORY: Final Tracking Updates Before Review
+```bash
+# Update all tracking documents before handoff
+finalize_task_completion() {
+    local task_name="$1"
+    
+    echo "=== Finalizing Task Completion Tracking ==="
+    
+    # Mark all remaining todo items complete or document why not
+    if [[ -f "todo.md" ]]; then
+        # Check for incomplete todos
+        if grep -q "- \[ \]" todo.md; then
+            echo "⚠️ Incomplete todo items found - marking as deferred or complete"
+            # User should manually review and update these
+        fi
+        
+        # Add completion timestamp to todo.md
+        echo "" >> todo.md
+        echo "## Task Completion" >> todo.md
+        echo "- **Completed**: $(date)" >> todo.md
+        echo "- **Branch**: feature/$task_name" >> todo.md
+        echo "- **Status**: Ready for review" >> todo.md
+        
+        git add todo.md
+        git commit -m "docs: finalize todo.md completion status"
+    fi
+    
+    # Update CLAUDE.md with final completion status
+    update_claude_md_status "$task_name" "COMPLETE - Ready for Review"
+    
+    # Commit CLAUDE.md updates
+    if [[ -f "CLAUDE.md" ]]; then
+        git add CLAUDE.md
+        git commit -m "docs: update CLAUDE.md with task completion"
+    fi
+    
+    echo "✅ All tracking documents updated for task completion"
+}
+
+# Execute final tracking updates
+finalize_task_completion "<task-name>"
 ```
 
 **When task is complete** → Go to [tasks-review.md](tasks-review.md)

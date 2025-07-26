@@ -1,6 +1,27 @@
 # Prototype-First Subtasks Planning Methodology
 ## Assumption-Driven Feature Development with AI Agent Coordination
 
+## EXECUTION INSTRUCTIONS FOR CLAUDE CODE
+
+**When this command is invoked, Claude Code must:**
+
+1. **CREATE PROJECT STRUCTURE**: Generate all required directories and files as specified in this methodology
+2. **ANALYZE USER REQUEST**: Break down the feature request using the analysis templates provided
+3. **GENERATE CONTEXT PACKAGE**: Create all context files with actual content, not just templates
+4. **CREATE TASK FILES**: Generate individual task files with complete specifications
+5. **SETUP WORKTREES**: Create git worktrees and symlinks as specified
+6. **WRITE ACTUAL CONTENT**: Fill templates with real analysis of the codebase and requirements
+
+**File Generation Requirements:**
+- Create `/requests/<feature-name>/context/codebase-analysis.md` with actual codebase analysis
+- Create `/requests/<feature-name>/context/external-sources.md` with researched documentation links
+- Create `/requests/<feature-name>/context/architecture-decisions.md` with specific architectural choices
+- Create `/requests/<feature-name>/context/implementation-patterns.md` with identified code patterns
+- Create `/requests/<feature-name>/tasks/XX-task-name.md` files with complete task specifications
+- Create worktree structure with proper git setup
+
+**CRITICAL**: This is not just a methodology document - it's an execution command that must produce actual files.
+
 ## Prerequisites Check
 
 ### MANDATORY: Before Planning Subtasks
@@ -42,14 +63,17 @@
 ## Phase 1: Request Analysis & Critical Assumption Identification
 
 ### 1. Deep Request Understanding with Assumption Focus
+
+**CLAUDE CODE ACTION**: Create `requests/<feature-name>/analysis/request-analysis.md` with the following content filled in with actual analysis:
+
 ```markdown
 ## Master Request Analysis
-**Original Request**: [Copy exact user request]
-**Business Context**: [Why this feature is needed]
-**Success Definition**: [How user/business will know it's complete]
-**Project Phase**: [Prototype/MVP/Production]
-**Timeline Constraints**: [Any deadline pressures]
-**Integration Scope**: [Services/systems affected]
+**Original Request**: [Copy exact user request from user input]
+**Business Context**: [Analyze why this feature is needed based on user context]
+**Success Definition**: [Define how user/business will know it's complete]
+**Project Phase**: [Determine if Prototype/MVP/Production from context]
+**Timeline Constraints**: [Extract any deadline pressures from user request]
+**Integration Scope**: [Identify services/systems affected by analyzing codebase]
 
 ## Critical Assumptions Identification (NEW)
 **Technical Assumptions**: [What do we assume about APIs, performance, integrations?]
@@ -90,15 +114,18 @@ grep -r "integration.*guide" docs/
 ```
 
 #### Context Capture Requirements:
+
+**CLAUDE CODE ACTION**: Execute the codebase discovery commands above, then create `requests/<feature-name>/context/codebase-analysis.md` with actual findings:
+
 ```markdown
 ## Codebase Context Documentation
 
 ### Existing Architecture Patterns
-- **Service Architecture**: [Microservices/Monolith/Hybrid] - Files: [paths]
-- **Data Layer**: [Database type, ORM, migration patterns] - Files: [paths]
-- **API Patterns**: [REST/GraphQL/gRPC] - Files: [example implementations]
-- **Authentication**: [Current auth system] - Files: [auth service paths]
-- **Configuration**: [How config is managed] - Files: [config file paths]
+- **Service Architecture**: [Analyze actual architecture from found files] - Files: [actual file paths found]
+- **Data Layer**: [Identify actual database/ORM from package.json and code] - Files: [actual schema/model file paths]
+- **API Patterns**: [Determine actual API style from route files] - Files: [actual API implementation paths]
+- **Authentication**: [Find actual auth implementation] - Files: [actual auth service file paths]
+- **Configuration**: [Locate actual config management] - Files: [actual config file paths found]
 
 ### Similar Feature Implementations
 - **Feature A**: [Path] - [Pattern used] - [Relevance to new feature]
@@ -131,13 +158,16 @@ low_change_areas:
 ### 3. External Context Research & Documentation
 
 #### Required External Sources (Document All):
+
+**CLAUDE CODE ACTION**: Research relevant documentation and create `requests/<feature-name>/context/external-sources.md`:
+
 ```markdown
 ## External Context Sources
 
 ### Primary Documentation
-- **Framework Docs**: [Next.js](https://nextjs.org/docs) - [Specific sections relevant] - [Key insights]
-- **Library Docs**: [Library](URL) - [Version compatibility] - [Usage patterns]
-- **API Standards**: [OpenAPI](URL) - [Which standards apply] - [Implementation guidance]
+- **Framework Docs**: [Identify actual framework from package.json/code] - [Research specific sections relevant to feature] - [Document key insights for implementation]
+- **Library Docs**: [Identify relevant libraries from dependencies] - [Check version compatibility] - [Document usage patterns]
+- **API Standards**: [Determine applicable standards for feature] - [Research which standards apply] - [Document implementation guidance]
 
 ### Industry Standards & Best Practices
 - **Security Standards**: [OWASP](URL) - [Applicable guidelines] - [Threat model implications]
@@ -612,10 +642,13 @@ integration_tasks:
 ## Phase 4: Task File Generation
 
 ### Context-Aware Task Template
+
+**CLAUDE CODE ACTION**: For each identified task, create `requests/<feature-name>/tasks/XX-task-name.md` with actual content:
+
 ```markdown
-# Task: <Task-Name>
-**Generated from Master Planning**: [Date]
-**Context Package**: `/requests/<feature>/context/`
+# Task: <Actual-Task-Name>
+**Generated from Master Planning**: [Current Date]
+**Context Package**: `/requests/<feature-name>/context/`
 **Next Phase**: [subtasks-execute.md](subtasks-execute.md)
 
 ## Task Sizing Assessment (MANDATORY)
@@ -756,20 +789,24 @@ npm run integration-test -- --grep "feature"   # Integration verified
 ## Phase 5: Worktree & Git Setup
 
 ### Git Workflow for Context-Aware Development
+
+**CLAUDE CODE ACTION**: Execute these git commands to set up the project structure:
+
 ```bash
 # Master feature branch setup
-git checkout -b feature/<feature-name>
-git push -u origin feature/<feature-name>
+git checkout -b feature/<actual-feature-name>
+git push -u origin feature/<actual-feature-name>
 
 # Create context package directory
-mkdir -p requests/<feature-name>/context
-mkdir -p requests/<feature-name>/tasks
+mkdir -p requests/<actual-feature-name>/context
+mkdir -p requests/<actual-feature-name>/tasks
+mkdir -p requests/<actual-feature-name>/analysis
 
 # Individual task worktrees with context access
-git worktree add ~/work/worktrees/<feature>/<task-id> feature/<feature-name>
+git worktree add ~/work/worktrees/<actual-feature-name>/<task-id> feature/<actual-feature-name>
 
 # Context sharing setup
-ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id>/context
+ln -s $(pwd)/requests/<actual-feature-name>/context ~/work/worktrees/<actual-feature-name>/<task-id>/context
 ```
 
 ### Worktree Structure
@@ -871,6 +908,29 @@ ln -s $(pwd)/requests/<feature-name>/context ~/work/worktrees/<feature>/<task-id
 **⚠️ STOP AND VERIFY**: User must confirm all files exist at specified locations before proceeding to execution phase.
 
 **Next Step**: Only proceed to [execute.md](execute.md) after user confirms file creation.
+
+## CLAUDE CODE EXECUTION SUMMARY
+
+**When `/plan` command is invoked, Claude Code must execute these steps in order:**
+
+1. **Extract feature name** from user request
+2. **Create directory structure**:
+   ```bash
+   mkdir -p requests/<feature-name>/{context,tasks,analysis}
+   ```
+3. **Execute codebase discovery commands** and analyze results
+4. **Create all context files** with actual content (not templates):
+   - `requests/<feature-name>/analysis/request-analysis.md`
+   - `requests/<feature-name>/context/codebase-analysis.md`
+   - `requests/<feature-name>/context/external-sources.md`
+   - `requests/<feature-name>/context/architecture-decisions.md`
+   - `requests/<feature-name>/context/implementation-patterns.md`
+5. **Break down feature into tasks** using the methodology
+6. **Generate task files** `requests/<feature-name>/tasks/XX-task-name.md` for each task
+7. **Set up git structure** with feature branch and worktrees
+8. **Verify all files exist** before completing
+
+**CRITICAL**: This command must produce actual files with real analysis, not just empty templates.
 
 ## AI Agent Advantage Summary
 **Speed Multiplier**: AI agents can build 5-10 investigation apps in time for 1 traditional analysis
